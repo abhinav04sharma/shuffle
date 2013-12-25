@@ -24,6 +24,10 @@ public class LinearRegression {
     this.results = new double[MAX_TRAINING_SETS][1];
     this.model = new double[numFeatures];
   }
+  
+  public void reset() {
+    this.currentPos = 0;
+  }
 
   private Matrix solveMatrix() {
     Matrix dim = new Basic2DMatrix(features);

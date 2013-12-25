@@ -25,11 +25,14 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import tags.Song;
+
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.ID3v23Tag;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
+
 
 /**
  * @author Abhinav Sharma
@@ -40,7 +43,7 @@ public class TagExtractor {
   private String dirName;
 
   private SortedSet<String> artists = new TreeSet<String>();
-  private List<ID3v2> songs = new ArrayList<ID3v2>();
+  private List<Song> songs = new ArrayList<Song>();
   private SortedSet<String> genres = new TreeSet<String>();
 
   private String ARTISTS_META_FILE_NAME = "ARTISTS_META_FILE.txt";
@@ -52,7 +55,8 @@ public class TagExtractor {
   }
 
   public void run() throws IOException, ClassNotFoundException {
-    if (new File(ARTISTS_META_FILE_NAME).exists()) {
+    readAllGenres();
+    if (new File(SONGS_META_FILE_NAME).exists()) {
       readMetaFiles();
       return;
     }
@@ -76,7 +80,7 @@ public class TagExtractor {
     writeMetaFiles();
   }
 
-  public List<ID3v2> getSongs() {
+  public List<Song> getSongs() {
     return songs;
   }
 
@@ -94,10 +98,19 @@ public class TagExtractor {
       ID3v2 id3v2tag = song.getId3v2Tag();
       if (id3v2tag.getGenreDescription() != null && id3v2tag.getArtist() != null) {
         artists.add(id3v2tag.getArtist());
-        songs.add(id3v2tag);
-        genres.add(id3v2tag.getGenreDescription());
+        songs.add(new Song(id3v2tag));
+        //genres.add(id3v2tag.getGenreDescription());
       }
     }
+  }
+  
+  private void readAllGenres() throws IOException {
+    BufferedReader br = new BufferedReader(new FileReader(GENRES_META_FILE_NAME));
+    String line;
+    while ((line = br.readLine()) != null) {
+      genres.add(line);
+    }
+    br.close();
   }
 
   private void writeMetaFiles() throws IOException {
@@ -108,10 +121,10 @@ public class TagExtractor {
 
     writeMetaId3();
 
-    fos = new FileOutputStream(GENRES_META_FILE_NAME);
+    /*fos = new FileOutputStream(GENRES_META_FILE_NAME);
     oos = new ObjectOutputStream(fos);
     oos.writeObject(genres);
-    oos.close();
+    oos.close();*/
   }
 
   private void readMetaFiles() throws IOException, ClassNotFoundException {
@@ -122,10 +135,10 @@ public class TagExtractor {
 
     readMetaId3();
 
-    fos = new FileInputStream(GENRES_META_FILE_NAME);
+    /*fos = new FileInputStream(GENRES_META_FILE_NAME);
     oos = new ObjectInputStream(fos);
     genres = (SortedSet<String>) oos.readObject();
-    oos.close();
+    oos.close();*/
   }
 
   private void readMetaId3() throws IOException {
@@ -141,7 +154,7 @@ public class TagExtractor {
       tag.setArtist(array[2]);
       tag.setTitle(array[3]);
       tag.setGenre(Integer.parseInt(array[4]));
-      songs.add(tag);
+      songs.add(new Song(tag));
     }
     br.close();
   }
@@ -149,9 +162,9 @@ public class TagExtractor {
   private void writeMetaId3() throws FileNotFoundException, UnsupportedEncodingException {
 
     PrintWriter writer = new PrintWriter(SONGS_META_FILE_NAME, "UTF-8");
-    for (ID3v2 tag : songs) {
-      writer.println(tag.getAlbum() + "|" + tag.getAlbumArtist() + "|" + tag.getArtist() + "|" + tag.getTitle() + "|"
-          + tag.getGenre());
+    for (Song tag : songs) {
+      writer.println(tag.getTag().getAlbum() + "|" + tag.getTag().getAlbumArtist() + "|" + tag.getTag().getArtist() + "|"
+          + tag.getTag().getTitle() + "|" + tag.getTag().getGenre());
     }
     writer.close();
   }
