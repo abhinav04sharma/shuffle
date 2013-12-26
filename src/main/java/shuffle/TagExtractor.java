@@ -99,7 +99,7 @@ public class TagExtractor {
       ID3v2 id3v2tag = song.getId3v2Tag();
       if (id3v2tag.getGenreDescription() != null && id3v2tag.getArtist() != null) {
         artists.add(id3v2tag.getArtist());
-        songs.add(new Song(id3v2tag));
+        songs.add(new Song(id3v2tag, filename.toAbsolutePath().toString()));
         //genres.add(id3v2tag.getGenreDescription());
       }
     }
@@ -131,7 +131,7 @@ public class TagExtractor {
   private void readMetaFiles() throws IOException, ClassNotFoundException {
     FileInputStream fos = new FileInputStream(ARTISTS_META_FILE_NAME);
     ObjectInputStream oos = new ObjectInputStream(fos);
-    artists = (SortedSet<String>) oos.readObject();
+    artists = (HashSet<String>) oos.readObject();
     oos.close();
 
     readMetaId3();
@@ -155,7 +155,7 @@ public class TagExtractor {
       tag.setArtist(array[2]);
       tag.setTitle(array[3]);
       tag.setGenre(Integer.parseInt(array[4]));
-      songs.add(new Song(tag));
+      songs.add(new Song(tag, array[5]));
     }
     br.close();
   }
@@ -165,7 +165,7 @@ public class TagExtractor {
     PrintWriter writer = new PrintWriter(SONGS_META_FILE_NAME, "UTF-8");
     for (Song tag : songs) {
       writer.println(tag.getTag().getAlbum() + "|" + tag.getTag().getAlbumArtist() + "|" + tag.getTag().getArtist() + "|"
-          + tag.getTag().getTitle() + "|" + tag.getTag().getGenre());
+          + tag.getTag().getTitle() + "|" + tag.getTag().getGenre() + "|" + tag.getFileName());
     }
     writer.close();
   }

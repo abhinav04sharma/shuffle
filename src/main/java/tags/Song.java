@@ -5,9 +5,11 @@ import com.mpatric.mp3agic.ID3v2;
 public class Song implements Comparable<Song> {
   private ID3v2 tag;
   private double rating;
+  private String fileName;
   
-  public Song(ID3v2 tag) {
+  public Song(ID3v2 tag, String fileName) {
     this.setTag(tag);
+    this.fileName = fileName;
     rating = 0;
   }
   
@@ -25,6 +27,10 @@ public class Song implements Comparable<Song> {
 
   public void setTag(ID3v2 tag) {
     this.tag = tag;
+  }
+  
+  public String getFileName() {
+    return fileName;
   }
 
   public int compareTo(Song o) {
