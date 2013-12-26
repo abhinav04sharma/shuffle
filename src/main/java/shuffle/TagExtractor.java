@@ -21,9 +21,10 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 import tags.Song;
 
@@ -42,9 +43,9 @@ public class TagExtractor {
 
   private String dirName;
 
-  private SortedSet<String> artists = new TreeSet<String>();
+  private Set<String> artists = new HashSet<String>();
   private List<Song> songs = new ArrayList<Song>();
-  private SortedSet<String> genres = new TreeSet<String>();
+  private Set<String> genres = new HashSet<String>();
 
   private String ARTISTS_META_FILE_NAME = "ARTISTS_META_FILE.txt";
   private String SONGS_META_FILE_NAME = "SONGS_META_FILE.txt";
@@ -84,11 +85,11 @@ public class TagExtractor {
     return songs;
   }
 
-  public SortedSet<String> getGenres() {
+  public Set<String> getGenres() {
     return genres;
   }
 
-  public SortedSet<String> getArtists() {
+  public Set<String> getArtists() {
     return artists;
   }
 

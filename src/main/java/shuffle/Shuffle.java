@@ -42,30 +42,13 @@ public class Shuffle {
     }
     
     // get artist and genre indices
-    int genreIndex = Collections.binarySearch(genres, tag.getGenreDescription()) + 1;
-    int artistIndex = Collections.binarySearch(artists, song.getTag().getArtist()) + 1;
+    int genreIndex = genres.indexOf(tag.getGenreDescription()) + 1;
+    int artistIndex = artists.indexOf(song.getTag().getArtist()) + 1;
 
-    // feed this song to linear regression to find coefficients
-    LinearRegression currentSongLR = new LinearRegression(2);
-    try {
-      currentSongLR.consumeTrainingData(1, genreIndex, artistIndex);
-    } catch (TooManyTrainingSetsException e) {
-      e.printStackTrace();
-    }
-
-    // get coefficients for this song!
-    currentSongLR.computeModel();
-    double[] currentSongModel = currentSongLR.getModel();
+    // get model
     double[] model = lr.getModel();
     
-    // current model is null
-    if(currentSongModel == new double[]{0.0, 0.0}) {
-      song.setRating(Double.MAX_VALUE);
-      return;
-    }
-
-    // take average of variance in each feature
-    double rating =  (Math.abs(currentSongModel[0] - model[0])) + (Math.abs(currentSongModel[1] - model[1])) / 2;
+    double rating = model[0] + genreIndex*model[1] + artistIndex*model[2];
     song.setRating(rating);
   }
   
@@ -112,10 +95,10 @@ public class Shuffle {
       if (tag.getGenreDescription() == null || tag.getArtist() == null) continue;
       
       // do we like this song?
-      int userRating = tag.getGenreDescription().endsWith("Rock") ? 1 : 0;
+      int userRating = tag.getGenreDescription().contains("Rock") ? 1 : 0;
       // get indices
-      int genreIndex = Collections.binarySearch(genres, song.getTag().getGenreDescription()) + 1;
-      int artistIndex = Collections.binarySearch(artists, song.getTag().getArtist()) + 1;
+      int genreIndex = genres.indexOf(song.getTag().getGenreDescription()) + 1;
+      int artistIndex = artists.indexOf(song.getTag().getArtist()) + 1;
       // consume the data for training
       try {
         lr.consumeTrainingData(userRating, genreIndex, artistIndex);

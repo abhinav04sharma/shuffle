@@ -20,9 +20,9 @@ public class LinearRegression {
 
   public LinearRegression(int numFeatures) {
     this.numFeatures = numFeatures;
-    this.features = new double[MAX_TRAINING_SETS][numFeatures];
+    this.features = new double[MAX_TRAINING_SETS][numFeatures + 1];
     this.results = new double[MAX_TRAINING_SETS][1];
-    this.model = new double[numFeatures];
+    this.model = new double[numFeatures + 1];
   }
   
   public void reset() {
@@ -48,7 +48,7 @@ public class LinearRegression {
 
   public void computeModel() {
     Matrix modelCoeff = solveMatrix();
-    for (int i = 0; i < numFeatures; ++i) {
+    for (int i = 0; i < numFeatures + 1; ++i) {
       model[i] = modelCoeff == null ? 0 : modelCoeff.get(i, 0);
     }
   }
@@ -60,15 +60,17 @@ public class LinearRegression {
   public boolean consumeTrainingData(double result, double... features) throws TooManyTrainingSetsException {
     if (features.length != numFeatures)
       return false;
-    if (currentPos++ > MAX_TRAINING_SETS) {
+    if (currentPos == MAX_TRAINING_SETS) {
       throw new TooManyTrainingSetsException();
     }
 
-    for (int i = 0; i < numFeatures; ++i) {
-      this.features[currentPos][i] = features[i];
+    this.features[currentPos][0] = 1;
+    for (int i = 1; i <= numFeatures; ++i) {
+      this.features[currentPos][i] = features[i - 1];
     }
 
     this.results[currentPos][0] = result;
+    ++currentPos;
     return true;
   }
 }
