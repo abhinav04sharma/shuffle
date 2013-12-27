@@ -7,7 +7,6 @@ import org.la4j.matrix.dense.Basic2DMatrix;
 
 /**
  * @author Abhinav Sharma
- * 
  */
 public class LinearRegression {
 
@@ -15,7 +14,7 @@ public class LinearRegression {
   private int numFeatures;
   private double features[][];
   private double results[][];
-  private int currentPos;
+  private int currentPos = 0;
   private double model[];
 
   public LinearRegression(int numFeatures) {
@@ -51,6 +50,7 @@ public class LinearRegression {
     for (int i = 0; i < numFeatures + 1; ++i) {
       model[i] = modelCoeff == null ? 0 : modelCoeff.get(i, 0);
     }
+    System.out.println("Model: " + model.toString());
   }
   
   public double[] getModel() {

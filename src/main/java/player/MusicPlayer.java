@@ -1,13 +1,10 @@
 package player;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,7 +12,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.layout.Priority;
@@ -30,8 +29,15 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-/** Example of playing all mp3 audio files in a given directory 
- * using a JavaFX MediaView launched from Swing 
+import org.apache.commons.httpclient.URIException;
+import org.apache.commons.httpclient.util.URIUtil;
+
+import shuffle.Shuffler;
+import tags.Song;
+
+/**
+ * Example of playing all mp3 audio files in a given directory using a JavaFX
+ * MediaView launched from Swing
  */
 public class MusicPlayer {
   private static void initAndShowGUI() {
@@ -45,12 +51,17 @@ public class MusicPlayer {
 
     Platform.runLater(new Runnable() {
       public void run() {
-        initFX(fxPanel);        
+        try {
+          initFX(fxPanel);
+        } catch (URIException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
     });
   }
 
-  private static void initFX(JFXPanel fxPanel) {
+  private static void initFX(JFXPanel fxPanel) throws URIException {
     // This method is invoked on JavaFX thread
     Scene scene = new SceneGenerator().createScene();
     fxPanel.setScene(scene);
@@ -65,61 +76,52 @@ public class MusicPlayer {
   }
 }
 
-class SceneGenerator {    
+class SceneGenerator {
+  private static final Shuffler shuffle = new Shuffler("D:/My Music");
   final Label currentlyPlaying = new Label();
   final ProgressBar progress = new ProgressBar();
   private ChangeListener<Duration> progressChangeListener;
 
-  public Scene createScene() {
+  public SceneGenerator() {
+    shuffle.initialize();
+  }
+
+  public Scene createScene() throws URIException {
+
     final StackPane layout = new StackPane();
+    final SongFactory shuffler = new SongFactory();
+    String filename = URIUtil.encodeQuery("file:///" + shuffler.first().getFileName());
+    MediaPlayer player = createPlayer(filename);
 
-    // determine the source directory for the playlist
-    final File dir = new File("C:\\Users\\Public\\Music\\Sample Music");
-    if (!dir.exists() || !dir.isDirectory()) {
-      System.out.println("Cannot find video source directory: " + dir);
-      Platform.exit();
-      return null;
-    }
-
-    // create some media players.
-    final List<MediaPlayer> players = new ArrayList<MediaPlayer>();
-    for (String file : dir.list(new FilenameFilter() {
-      public boolean accept(File dir, String name) {
-        return name.endsWith(".mp3");
-      }
-    })) players.add(createPlayer("file:///" + (dir + "\\" + file).replace("\\", "/").replaceAll(" ", "%20")));
-    if (players.isEmpty()) {
-      System.out.println("No audio found in " + dir);
-      Platform.exit();
-      return null;
-    }    
-
-    // create a view to show the mediaplayers.
-    final MediaView mediaView = new MediaView(players.get(0));
+    final MediaView mediaView = new MediaView(player);
     final Button skip = new Button("Skip");
     final Button play = new Button("Pause");
 
-    // play each audio file in turn.
-    for (int i = 0; i < players.size(); i++) {
-      final MediaPlayer player     = players.get(i);
-      final MediaPlayer nextPlayer = players.get((i + 1) % players.size());
-      player.setOnEndOfMedia(new Runnable() {
-        public void run() {
-          player.currentTimeProperty().removeListener(progressChangeListener);
-          mediaView.setMediaPlayer(nextPlayer);
-          nextPlayer.play();
-        }
-      });
-    }
+    player.setOnEndOfMedia(new Runnable() {
+      public void run() {
+        MediaPlayer player = mediaView.getMediaPlayer();
+        player.currentTimeProperty().removeListener(progressChangeListener);
+
+        MediaPlayer nextPlayer = createPlayer("file:///"
+            + shuffler.next(player).getFileName().replace("\\", "/").replaceAll(" ", "%20"));
+
+        mediaView.setMediaPlayer(nextPlayer);
+        nextPlayer.play();
+      }
+    });
 
     // allow the user to skip a track.
     skip.setOnAction(new EventHandler<ActionEvent>() {
       public void handle(ActionEvent actionEvent) {
-        final MediaPlayer curPlayer = mediaView.getMediaPlayer();
-        MediaPlayer nextPlayer = players.get((players.indexOf(curPlayer) + 1) % players.size());
+        MediaPlayer player = mediaView.getMediaPlayer();
+
+        MediaPlayer nextPlayer = createPlayer("file:///"
+            + shuffler.next(player).getFileName().replace("\\", "/").replaceAll(" ", "%20"));
+
         mediaView.setMediaPlayer(nextPlayer);
-        curPlayer.currentTimeProperty().removeListener(progressChangeListener);
-        curPlayer.stop();
+        player.currentTimeProperty().removeListener(progressChangeListener);
+
+        player.stop();
         nextPlayer.play();
       }
     });
@@ -145,11 +147,12 @@ class SceneGenerator {
     });
 
     // start playing the first track.
-    mediaView.setMediaPlayer(players.get(0));
+    mediaView.setMediaPlayer(player);
     mediaView.getMediaPlayer().play();
     setCurrentlyPlaying(mediaView.getMediaPlayer());
 
-    // silly invisible button used as a template to get the actual preferred size of the Pause button.
+    // silly invisible button used as a template to get the actual preferred
+    // size of the Pause button.
     Button invisiblePause = new Button("Pause");
     invisiblePause.setVisible(false);
     play.prefHeightProperty().bind(invisiblePause.heightProperty());
@@ -158,19 +161,22 @@ class SceneGenerator {
     // layout the scene.
     layout.setStyle("-fx-background-color: cornsilk; -fx-font-size: 20; -fx-padding: 20; -fx-alignment: center;");
     layout.getChildren().addAll(
-      invisiblePause,
-      VBoxBuilder.create().spacing(10).alignment(Pos.CENTER).children(
-        currentlyPlaying,
-        mediaView,
-        HBoxBuilder.create().spacing(10).alignment(Pos.CENTER).children(skip, play, progress).build()
-      ).build()
-    );
+        invisiblePause,
+        VBoxBuilder
+            .create()
+            .spacing(10)
+            .alignment(Pos.CENTER)
+            .children(currentlyPlaying, mediaView,
+                HBoxBuilder.create().spacing(10).alignment(Pos.CENTER).children(skip, play, progress).build()).build());
     progress.setMaxWidth(Double.MAX_VALUE);
     HBox.setHgrow(progress, Priority.ALWAYS);
     return new Scene(layout, 800, 600);
   }
 
-  /** sets the currently playing label to the label of the new media player and updates the progress monitor. */
+  /**
+   * sets the currently playing label to the label of the new media player and
+   * updates the progress monitor.
+   */
   private void setCurrentlyPlaying(final MediaPlayer newPlayer) {
     progress.setProgress(0);
     progressChangeListener = new ChangeListener<Duration>() {
@@ -186,9 +192,11 @@ class SceneGenerator {
     currentlyPlaying.setText("Now Playing: " + source);
   }
 
-  /** @return a MediaPlayer for the given source which will report any errors it encounters */
+  /**
+   * @return a MediaPlayer for the given source which will report any errors it
+   *         encounters
+   */
   private MediaPlayer createPlayer(String aMediaSrc) {
-    System.out.println("Creating player for: " + aMediaSrc);
     final MediaPlayer player = new MediaPlayer(new Media(aMediaSrc));
     player.setOnError(new Runnable() {
       public void run() {

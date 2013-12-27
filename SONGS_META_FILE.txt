@@ -66,7 +66,7 @@ Live at Slane Castle|null|Bryan Adams|Back to You|17|D:\My Music\Bryan Adams\[no
 Room Service|null|Bryan Adams|Blessing in Disguise|17|D:\My Music\Bryan Adams\[notag] - [notag] - FILE1293.MP3.mp3.mp3
 Room Service|null|Bryan Adams|Room Service|17|D:\My Music\Bryan Adams\[notag] - [notag] - FILE1295.MP3.mp3.mp3
 Room Service|null|Bryan Adams|This Side of Paradise|17|D:\My Music\Bryan Adams\[notag] - [notag] - FILE1297.MP3.mp3.mp3
-Room Service|null|Bryan Adams|No Where Fast|17|D:\My Music\Bryan Adams\[notag] - [notag] - [notag] - BRBBA0~1.M.mp3
+Room Service|null|Bryan Adams|East Side Story|17|D:\My Music\Bryan Adams\[notag] - [notag] - [notag] - BRBBA0~1.M.mp3
 Viva La Vida|null|Coldplay|Lost|20|D:\My Music\Coldplay\03  Coldplay - Lost.mp3
 Parachutes|Coldplay|Coldplay|Sparks|17|D:\My Music\Coldplay\04 - Sparks.mp3
 Live 2003|Coldplay|Coldplay|See You Soon|-1|D:\My Music\Coldplay\05 - See You Soon.mp3
@@ -118,7 +118,7 @@ The Razor's Edge|AC/DC|AC/DC|Thunderstruck|17|D:\My Music\English\ACDC - Thunder
 21|Adele|Adele|Rolling in the Deep|-1|D:\My Music\English\Adele - Rolling in the Deep.mp3
 The Official UK Top 40 Singles Chart 26-06-2011|Various Artists|Adele|Someone Like You|13|D:\My Music\English\Adele - Someone Like You.mp3
 Greatest Hits|Aerosmith|Aerosmith|Dream On|17|D:\My Music\English\Aerosmith - Dream On.mp3
-Love Story –ó–æ–ª–æ—Ç—ã–µ –±–∞–ª–ª–∞–¥—ã|–†–∞–∑–ª–∏—á–Ω—ã–µ –∏—Å–ø–æ–ª–Ω–∏—Ç–µ–ª–∏|Aerosmith|I Don't Want To Miss A Thing|-1|D:\My Music\English\Aerosmith - I Don't Want To Miss A Thing.mp3
+Love Story ??????? ???????|????????? ???????????|Aerosmith|I Don't Want To Miss A Thing|-1|D:\My Music\English\Aerosmith - I Don't Want To Miss A Thing.mp3
 The Collection|Alanis Morissette|Alanis Morissette|Hand in My Pocket|13|D:\My Music\English\Alanis Morisette - One Hand in my Pocket.mp3
 Everything All the Time|null|Band of Horses|The Funeral|131|D:\My Music\English\Band of Horses - The Funeral.mp3
 Last Smoke Before the Snowstorm|Benjamin Francis Leftwich|Benjamin Francis Leftwich|Atlas Hands|20|D:\My Music\English\Benjamin Francis Leftwich - Atlas Hands.mp3
@@ -202,7 +202,7 @@ What a Wonderful World [MCA]|Louis Armstrong|Louis Armstrong|What a Wonderful Wo
 Songs About Jane|null|Maroon 5|She Will Be Loved|17|D:\My Music\English\Maroon Five - She'll be loved.mp3
 Songs About Jane (Special Edition)|null|Maroon 5|Sunday Morning|-1|D:\My Music\English\maroon- sunday_morning.mp3
 Life In Cartoon Motion|null|Mika|Lollipop|12|D:\My Music\English\Mika - Lollipop.mp3
-De B√§sta S√•ngerna 1978-98|Kenny G|Mikael Wiehe|Titanic|17|D:\My Music\English\Mikael Wiehe - Titanic.mp3
+De B‰sta SÂngerna 1978-98|Kenny G|Mikael Wiehe|Titanic|17|D:\My Music\English\Mikael Wiehe - Titanic.mp3
 Three Cheers for Sweet Revenge|null|My Chemical Romance|I'm Not Okay (I Promise)|12|D:\My Music\English\My Chemical Romance - I'm Not Okay (I Promise).mp3
 The Black Parade|My Chemical Romance|My Chemical Romance|Teenagers|20|D:\My Music\English\My Chemical Romance - Teenagers.mp3
 Lucky|null|Nada Surf|Beautiful Beat|131|D:\My Music\English\Nada Surf - Beautiful Beat.mp3
@@ -237,7 +237,7 @@ Meet the Robinsons|Danny Elfman|Rob Thomas|Little Wonders|24|D:\My Music\English
 NhacCuaTui.Com|null|Rosi Golan|Say It Anyway|-1|D:\My Music\English\Rosi Golan - Say It Anyway.mp3
 Up! Disc 2|Shania Twain|Shania Twain|Forever and for Always|2|D:\My Music\English\Shania Twain - Forever and for Always.mp3
 Shrek Soundtrack|Various Artists|Smash Mouth|I'm a Believer [From Shrek]|24|D:\My Music\English\Shrek Soundtrack - Smash Mouth Im A Believer.mp3
-127 Hours|null|Sigur R√≥s|Festival|-1|D:\My Music\English\Sigur Ros - Festival.mp3
+127 Hours|null|Sigur RÛs|Festival|-1|D:\My Music\English\Sigur Ros - Festival.mp3
 X-RATED|X-Rated|Smokie|Who The Fuck Is Alice|13|D:\My Music\English\Smokie- Who the fuck is alice.mp3
 Eyes Open|Snow Patrol|Snow Patrol|Chasing Cars|20|D:\My Music\English\Snow Patrol - Chasing Cars.mp3
 Eyes Open|Snow Patrol|Snow Patrol|Open Your Eyes|20|D:\My Music\English\Snow Patrol - Open your eyes.mp3
@@ -486,66 +486,66 @@ Pulse [Live] [Disc 1]|null|Pink Floyd|Coming Back To Life|93|D:\My Music\Pink Fl
 The Division Bell|Pink Floyd|Pink Floyd|High Hopes|17|D:\My Music\Pink Floyd\Pink Floyd - high hopes.mp3
 null|null|Pink Floyd|Time (Cates&dpL No Time For Miami Mix)|35|D:\My Music\Pink Floyd\Pink Floyd - Time (Cates&dpL No Time For Miami Mix).mp3
 Wish You Were Here|null|Pink Floyd|Wish You Were Here|-1|D:\My Music\Pink Floyd\Pink floyd - wish you were here.mp3
-Hauf/Heim|null|Sigur Ros|Salka|-1|D:\My Music\Sigur R√≥s\Hauf-Heim\101-sigur_ros-salka.mp3
-Hauf/Heim|null|Sigur Ros|Hljomalind|-1|D:\My Music\Sigur R√≥s\Hauf-Heim\102-sigur_ros-hljomalind.mp3
-Hauf/Heim|null|Sigur Ros|I Gaer|-1|D:\My Music\Sigur R√≥s\Hauf-Heim\103-sigur_ros-i_gaer.mp3
-Hauf/Heim|null|Sigur Ros|Von|-1|D:\My Music\Sigur R√≥s\Hauf-Heim\104-sigur_ros-von.mp3
-Hauf/Heim|null|Sigur Ros|Hafsol|-1|D:\My Music\Sigur R√≥s\Hauf-Heim\105-sigur_ros-hafsol.mp3
-Hauf/Heim|null|Sigur Ros|Samskeyti|-1|D:\My Music\Sigur R√≥s\Hauf-Heim\201-sigur_ros-samskeyti.mp3
-Hauf/Heim|null|Sigur Ros|Staralfur|-1|D:\My Music\Sigur R√≥s\Hauf-Heim\202-sigur_ros-staralfur.mp3
-Hauf/Heim|null|Sigur Ros|Vaka|-1|D:\My Music\Sigur R√≥s\Hauf-Heim\203-sigur_ros-vaka.mp3
-Hauf/Heim|null|Sigur Ros|Agaetis Byrjun|-1|D:\My Music\Sigur R√≥s\Hauf-Heim\204-sigur_ros-agaetis_byrjun.mp3
-Hauf/Heim|null|Sigur Ros|Heysatan|-1|D:\My Music\Sigur R√≥s\Hauf-Heim\205-sigur_ros-heysatan.mp3
-Hauf/Heim|null|Sigur Ros|Von|-1|D:\My Music\Sigur R√≥s\Hauf-Heim\206-sigur_ros-von.mp3
-Hlemmur Soundtrack|null|Sigur R√≥s|Hlemmur 1|-1|D:\My Music\Sigur R√≥s\Hlemmur Soundtrack\Sigur R√≥s - 02 - Hlemmur 1.mp3
-Live at The Icelandic Opera House|Sigur R√≥s|Sigur R√≥s|Intro Von|-1|D:\My Music\Sigur R√≥s\Live at The Icelandic Opera House\01 - Intro Von.mp3
-Live at The Icelandic Opera House|Sigur R√≥s|Sigur R√≥s|Syndir gu√∞s|-1|D:\My Music\Sigur R√≥s\Live at The Icelandic Opera House\02 - Syndir gu√∞s.mp3
-Live at The Icelandic Opera House|Sigur R√≥s|Sigur R√≥s|Flugufrelsarinn|-1|D:\My Music\Sigur R√≥s\Live at The Icelandic Opera House\03 - Flugufrelsarinn.mp3
-Live at The Icelandic Opera House|Sigur R√≥s|Sigur R√≥s|N√Ωja Lagi√∞ (L|-1|D:\My Music\Sigur R√≥s\Live at The Icelandic Opera House\03 - N√Ωja Lagi√∞ (L.mp3
-Live at The Icelandic Opera House|Sigur R√≥s|Sigur R√≥s|Olsen Olsen|-1|D:\My Music\Sigur R√≥s\Live at The Icelandic Opera House\04 - Olsen Olsen.mp3
-Live at The Icelandic Opera House|Sigur R√≥s|Sigur R√≥s|√Åg√¶tis byrjun|-1|D:\My Music\Sigur R√≥s\Live at The Icelandic Opera House\05 - √Åg√¶tis byrjun.mp3
-Live at The Icelandic Opera House|Sigur R√≥s|Sigur R√≥s|Vidra Vel Tl Loftarasa|-1|D:\My Music\Sigur R√≥s\Live at The Icelandic Opera House\06 - Vidra Vel Tl Loftarasa.mp3
-Live at The Icelandic Opera House|Sigur R√≥s|Sigur R√≥s|Svefn-g-englar|-1|D:\My Music\Sigur R√≥s\Live at The Icelandic Opera House\07 - Svefn-g-englar.mp3
-Live at The Icelandic Opera House|Sigur R√≥s|Sigur R√≥s|Nyja Lagid|-1|D:\My Music\Sigur R√≥s\Live at The Icelandic Opera House\08 - Nyja Lagid.mp3
-Live at The Icelandic Opera House|Sigur R√≥s|Sigur R√≥s|The Nothing Song|-1|D:\My Music\Sigur R√≥s\Live at The Icelandic Opera House\09 - The Nothing Song.mp3
-Live at The Icelandic Opera House|Sigur R√≥s|Sigur R√≥s|Hun Jord|-1|D:\My Music\Sigur R√≥s\Live at The Icelandic Opera House\10 - Hun Jord.mp3
-Saeglopur: Japan Only Tour EP|Sigur R√≥s|Sigur R√≥s|Saeglopur|-1|D:\My Music\Sigur R√≥s\Saeglopur EP\01-sigur_ros--saeglopur.mp3
-Saeglopur: Japan Only Tour EP|Sigur R√≥s|Sigur R√≥s|Refur|-1|D:\My Music\Sigur R√≥s\Saeglopur EP\02-sigur_ros--refur.mp3
-Saeglopur: Japan Only Tour EP|Sigur R√≥s|Sigur R√≥s|O Fridur|-1|D:\My Music\Sigur R√≥s\Saeglopur EP\03-sigur_ros--o_fridur.mp3
-Saeglopur: Japan Only Tour EP|Sigur R√≥s|Sigur R√≥s|Kafari|-1|D:\My Music\Sigur R√≥s\Saeglopur EP\04-sigur_ros--kafari.mp3
-Saeglopur: Japan Only Tour EP|Sigur R√≥s|Sigur R√≥s|Hafsol|-1|D:\My Music\Sigur R√≥s\Saeglopur EP\05-sigur_ros--hafsol.mp3
-Takk...|Sigur R√≥s|Sigur R√≥s|Gl√≥s√≥li|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - Gl√≥s√≥li.mp3
-Takk...|null|Sigur R√≥s|Gong|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - Gong.mp3
-S√¶gl√≥pur|null|Sigur R√≥s|Hafs√≥l|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - Hafsol.mp3
-null|null|Sigur R√≥s|Hljomalind|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - Hljomalind.mp3
-Takk...|null|Sigur R√≥s|Hopp√≠polla|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - Hopp√≠polla.mp3
-Me√∞ Su√∞ √≠ Eyrum Vi√∞ Spilum Endalaust|null|Sigur R√≥s|Inni Mer Syngur Vitleysingur (Within Me A Lunatic Sings)|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - Inni Mer Syngur Vitleysingur.mp3
-null|null|Sigur R√≥s|Njosnavelin|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - Njosnavelin.mp3
-Sigur R√≥s|null|Sigur R√≥s|Olsen Olsen|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - Olsen Olsen.mp3
-Takk...|null|Sigur R√≥s|Saeglopur|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - Saeglopur.mp3
-Agaetis Byrjun|null|Sigur R√≥s|Staralfur|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - Staralfur.mp3
-√Åg√¶tis Byrjun|null|Sigur R√≥s|Svefn-G-Englar|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - Svefn-G-Englar.mp3
-Live at Fr√≠kirkjan 20.okt 2000|null|Sigur R√≥s|The Death Song|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - The Death Song.mp3
-Hvarf/Heim|null|Sigur R√≥s|Von|-1|D:\My Music\Sigur R√≥s\Sigur R√≥s - Von.mp3
-( )|null|Sigur R√≥s|Untitled #4 from ( )|-1|D:\My Music\Sigur R√≥s\sigur_ros-untitled4.mp3
-Valtari|Sigur R√≥s|Sigur R√≥s|√âg anda |-1|D:\My Music\Sigur R√≥s\Valtari\01. √âg anda.mp3
-Valtari|Sigur R√≥s|Sigur R√≥s|Ekki m√∫kk|-1|D:\My Music\Sigur R√≥s\Valtari\02. Ekki m√∫kk.mp3
-Valtari|Sigur R√≥s|Sigur R√≥s|Var√∫√∞|-1|D:\My Music\Sigur R√≥s\Valtari\03. Var√∫√∞.mp3
-Valtari|Sigur R√≥s|Sigur R√≥s|Rembihn√∫tur|-1|D:\My Music\Sigur R√≥s\Valtari\04. Rembihn√∫tur.mp3
-Valtari|Sigur R√≥s|Sigur R√≥s|Dau√∞alogn|-1|D:\My Music\Sigur R√≥s\Valtari\05. Dau√∞alogn.mp3
-Valtari|Sigur R√≥s|Sigur R√≥s|Var√∞eldur|-1|D:\My Music\Sigur R√≥s\Valtari\06. Var√∞eldur.mp3
-Valtari|Sigur R√≥s|Sigur R√≥s|Valtari|-1|D:\My Music\Sigur R√≥s\Valtari\07. Valtari.mp3
-Valtari|Sigur R√≥s|Sigur R√≥s|Fj√∂gur p√≠an√≥|-1|D:\My Music\Sigur R√≥s\Valtari\08. Fj√∂gur p√≠an√≥.mp3
-√Åg√¶tis Byrjun|Sigur R√≥s|Sigur R√≥s|Intro|-1|D:\My Music\Sigur R√≥s\√Åg√¶tis Byrjun\01 Intro.mp3
-√Åg√¶tis Byrjun|Sigur R√≥s|Sigur R√≥s|Svefn-G-Englar|-1|D:\My Music\Sigur R√≥s\√Åg√¶tis Byrjun\02 Svefn-G-Englar.mp3
-√Åg√¶tis Byrjun|Sigur R√≥s|Sigur R√≥s|Star√°lfur|-1|D:\My Music\Sigur R√≥s\√Åg√¶tis Byrjun\03 Star√°lfur.mp3
-√Åg√¶tis Byrjun|Sigur R√≥s|Sigur R√≥s|Flugufrelsarinn|-1|D:\My Music\Sigur R√≥s\√Åg√¶tis Byrjun\04 Flugufrelsarinn.mp3
-√Åg√¶tis Byrjun|Sigur R√≥s|Sigur R√≥s|N√Ω Batter√≠|-1|D:\My Music\Sigur R√≥s\√Åg√¶tis Byrjun\05 N√Ω Batter√≠.mp3
-√Åg√¶tis Byrjun|Sigur R√≥s|Sigur R√≥s|Hjarta√µ Hamast (Bamm Bamm Bamm|-1|D:\My Music\Sigur R√≥s\√Åg√¶tis Byrjun\06 Hjarta√µ Hamast (Bamm Bamm Bamm).mp3
-√Åg√¶tis Byrjun|Sigur R√≥s|Sigur R√≥s|Vi√µrar Vel Til Loft√°rasa|-1|D:\My Music\Sigur R√≥s\√Åg√¶tis Byrjun\07 Vi√µrar Vel Til Loft√°rasa.mp3
-√Åg√¶tis Byrjun|Sigur R√≥s|Sigur R√≥s|Olsen Olsen|-1|D:\My Music\Sigur R√≥s\√Åg√¶tis Byrjun\08 Olsen Olsen.mp3
-√Åg√¶tis Byrjun|Sigur R√≥s|Sigur R√≥s|√Ågaetis Byrjun|-1|D:\My Music\Sigur R√≥s\√Åg√¶tis Byrjun\09 √Ågaetis Byrjun.mp3
-√Åg√¶tis Byrjun|Sigur R√≥s|Sigur R√≥s|Avalon|-1|D:\My Music\Sigur R√≥s\√Åg√¶tis Byrjun\10 Avalon.mp3
+Hauf/Heim|null|Sigur Ros|Salka|-1|D:\My Music\Sigur RÛs\Hauf-Heim\101-sigur_ros-salka.mp3
+Hauf/Heim|null|Sigur Ros|Hljomalind|-1|D:\My Music\Sigur RÛs\Hauf-Heim\102-sigur_ros-hljomalind.mp3
+Hauf/Heim|null|Sigur Ros|I Gaer|-1|D:\My Music\Sigur RÛs\Hauf-Heim\103-sigur_ros-i_gaer.mp3
+Hauf/Heim|null|Sigur Ros|Von|-1|D:\My Music\Sigur RÛs\Hauf-Heim\104-sigur_ros-von.mp3
+Hauf/Heim|null|Sigur Ros|Hafsol|-1|D:\My Music\Sigur RÛs\Hauf-Heim\105-sigur_ros-hafsol.mp3
+Hauf/Heim|null|Sigur Ros|Samskeyti|-1|D:\My Music\Sigur RÛs\Hauf-Heim\201-sigur_ros-samskeyti.mp3
+Hauf/Heim|null|Sigur Ros|Staralfur|-1|D:\My Music\Sigur RÛs\Hauf-Heim\202-sigur_ros-staralfur.mp3
+Hauf/Heim|null|Sigur Ros|Vaka|-1|D:\My Music\Sigur RÛs\Hauf-Heim\203-sigur_ros-vaka.mp3
+Hauf/Heim|null|Sigur Ros|Agaetis Byrjun|-1|D:\My Music\Sigur RÛs\Hauf-Heim\204-sigur_ros-agaetis_byrjun.mp3
+Hauf/Heim|null|Sigur Ros|Heysatan|-1|D:\My Music\Sigur RÛs\Hauf-Heim\205-sigur_ros-heysatan.mp3
+Hauf/Heim|null|Sigur Ros|Von|-1|D:\My Music\Sigur RÛs\Hauf-Heim\206-sigur_ros-von.mp3
+Hlemmur Soundtrack|null|Sigur RÛs|Hlemmur 1|-1|D:\My Music\Sigur RÛs\Hlemmur Soundtrack\Sigur RÛs - 02 - Hlemmur 1.mp3
+Live at The Icelandic Opera House|Sigur RÛs|Sigur RÛs|Intro Von|-1|D:\My Music\Sigur RÛs\Live at The Icelandic Opera House\01 - Intro Von.mp3
+Live at The Icelandic Opera House|Sigur RÛs|Sigur RÛs|Syndir gus|-1|D:\My Music\Sigur RÛs\Live at The Icelandic Opera House\02 - Syndir gus.mp3
+Live at The Icelandic Opera House|Sigur RÛs|Sigur RÛs|Flugufrelsarinn|-1|D:\My Music\Sigur RÛs\Live at The Icelandic Opera House\03 - Flugufrelsarinn.mp3
+Live at The Icelandic Opera House|Sigur RÛs|Sigur RÛs|N˝ja Lagi (L|-1|D:\My Music\Sigur RÛs\Live at The Icelandic Opera House\03 - N˝ja Lagi (L.mp3
+Live at The Icelandic Opera House|Sigur RÛs|Sigur RÛs|Olsen Olsen|-1|D:\My Music\Sigur RÛs\Live at The Icelandic Opera House\04 - Olsen Olsen.mp3
+Live at The Icelandic Opera House|Sigur RÛs|Sigur RÛs|¡gÊtis byrjun|-1|D:\My Music\Sigur RÛs\Live at The Icelandic Opera House\05 - ¡gÊtis byrjun.mp3
+Live at The Icelandic Opera House|Sigur RÛs|Sigur RÛs|Vidra Vel Tl Loftarasa|-1|D:\My Music\Sigur RÛs\Live at The Icelandic Opera House\06 - Vidra Vel Tl Loftarasa.mp3
+Live at The Icelandic Opera House|Sigur RÛs|Sigur RÛs|Svefn-g-englar|-1|D:\My Music\Sigur RÛs\Live at The Icelandic Opera House\07 - Svefn-g-englar.mp3
+Live at The Icelandic Opera House|Sigur RÛs|Sigur RÛs|Nyja Lagid|-1|D:\My Music\Sigur RÛs\Live at The Icelandic Opera House\08 - Nyja Lagid.mp3
+Live at The Icelandic Opera House|Sigur RÛs|Sigur RÛs|The Nothing Song|-1|D:\My Music\Sigur RÛs\Live at The Icelandic Opera House\09 - The Nothing Song.mp3
+Live at The Icelandic Opera House|Sigur RÛs|Sigur RÛs|Hun Jord|-1|D:\My Music\Sigur RÛs\Live at The Icelandic Opera House\10 - Hun Jord.mp3
+Saeglopur: Japan Only Tour EP|Sigur RÛs|Sigur RÛs|Saeglopur|-1|D:\My Music\Sigur RÛs\Saeglopur EP\01-sigur_ros--saeglopur.mp3
+Saeglopur: Japan Only Tour EP|Sigur RÛs|Sigur RÛs|Refur|-1|D:\My Music\Sigur RÛs\Saeglopur EP\02-sigur_ros--refur.mp3
+Saeglopur: Japan Only Tour EP|Sigur RÛs|Sigur RÛs|O Fridur|-1|D:\My Music\Sigur RÛs\Saeglopur EP\03-sigur_ros--o_fridur.mp3
+Saeglopur: Japan Only Tour EP|Sigur RÛs|Sigur RÛs|Kafari|-1|D:\My Music\Sigur RÛs\Saeglopur EP\04-sigur_ros--kafari.mp3
+Saeglopur: Japan Only Tour EP|Sigur RÛs|Sigur RÛs|Hafsol|-1|D:\My Music\Sigur RÛs\Saeglopur EP\05-sigur_ros--hafsol.mp3
+Takk...|Sigur RÛs|Sigur RÛs|GlÛsÛli|-1|D:\My Music\Sigur RÛs\Sigur RÛs - GlÛsÛli.mp3
+Takk...|null|Sigur RÛs|Gong|-1|D:\My Music\Sigur RÛs\Sigur RÛs - Gong.mp3
+SÊglÛpur|null|Sigur RÛs|HafsÛl|-1|D:\My Music\Sigur RÛs\Sigur RÛs - Hafsol.mp3
+null|null|Sigur RÛs|Hljomalind|-1|D:\My Music\Sigur RÛs\Sigur RÛs - Hljomalind.mp3
+Takk...|null|Sigur RÛs|HoppÌpolla|-1|D:\My Music\Sigur RÛs\Sigur RÛs - HoppÌpolla.mp3
+Me Su Ì Eyrum Vi Spilum Endalaust|null|Sigur RÛs|Inni Mer Syngur Vitleysingur (Within Me A Lunatic Sings)|-1|D:\My Music\Sigur RÛs\Sigur RÛs - Inni Mer Syngur Vitleysingur.mp3
+null|null|Sigur RÛs|Njosnavelin|-1|D:\My Music\Sigur RÛs\Sigur RÛs - Njosnavelin.mp3
+Sigur RÛs|null|Sigur RÛs|Olsen Olsen|-1|D:\My Music\Sigur RÛs\Sigur RÛs - Olsen Olsen.mp3
+Takk...|null|Sigur RÛs|Saeglopur|-1|D:\My Music\Sigur RÛs\Sigur RÛs - Saeglopur.mp3
+Agaetis Byrjun|null|Sigur RÛs|Staralfur|-1|D:\My Music\Sigur RÛs\Sigur RÛs - Staralfur.mp3
+¡gÊtis Byrjun|null|Sigur RÛs|Svefn-G-Englar|-1|D:\My Music\Sigur RÛs\Sigur RÛs - Svefn-G-Englar.mp3
+Live at FrÌkirkjan 20.okt 2000|null|Sigur RÛs|The Death Song|-1|D:\My Music\Sigur RÛs\Sigur RÛs - The Death Song.mp3
+Hvarf/Heim|null|Sigur RÛs|Von|-1|D:\My Music\Sigur RÛs\Sigur RÛs - Von.mp3
+( )|null|Sigur RÛs|Untitled #4 from ( )|-1|D:\My Music\Sigur RÛs\sigur_ros-untitled4.mp3
+Valtari|Sigur RÛs|Sigur RÛs|…g anda |-1|D:\My Music\Sigur RÛs\Valtari\01. …g anda.mp3
+Valtari|Sigur RÛs|Sigur RÛs|Ekki m˙kk|-1|D:\My Music\Sigur RÛs\Valtari\02. Ekki m˙kk.mp3
+Valtari|Sigur RÛs|Sigur RÛs|Var˙|-1|D:\My Music\Sigur RÛs\Valtari\03. Var˙.mp3
+Valtari|Sigur RÛs|Sigur RÛs|Rembihn˙tur|-1|D:\My Music\Sigur RÛs\Valtari\04. Rembihn˙tur.mp3
+Valtari|Sigur RÛs|Sigur RÛs|Daualogn|-1|D:\My Music\Sigur RÛs\Valtari\05. Daualogn.mp3
+Valtari|Sigur RÛs|Sigur RÛs|Vareldur|-1|D:\My Music\Sigur RÛs\Valtari\06. Vareldur.mp3
+Valtari|Sigur RÛs|Sigur RÛs|Valtari|-1|D:\My Music\Sigur RÛs\Valtari\07. Valtari.mp3
+Valtari|Sigur RÛs|Sigur RÛs|Fjˆgur pÌanÛ|-1|D:\My Music\Sigur RÛs\Valtari\08. Fjˆgur pÌanÛ.mp3
+¡gÊtis Byrjun|Sigur RÛs|Sigur RÛs|Intro|-1|D:\My Music\Sigur RÛs\¡gÊtis Byrjun\01 Intro.mp3
+¡gÊtis Byrjun|Sigur RÛs|Sigur RÛs|Svefn-G-Englar|-1|D:\My Music\Sigur RÛs\¡gÊtis Byrjun\02 Svefn-G-Englar.mp3
+¡gÊtis Byrjun|Sigur RÛs|Sigur RÛs|Star·lfur|-1|D:\My Music\Sigur RÛs\¡gÊtis Byrjun\03 Star·lfur.mp3
+¡gÊtis Byrjun|Sigur RÛs|Sigur RÛs|Flugufrelsarinn|-1|D:\My Music\Sigur RÛs\¡gÊtis Byrjun\04 Flugufrelsarinn.mp3
+¡gÊtis Byrjun|Sigur RÛs|Sigur RÛs|N˝ BatterÌ|-1|D:\My Music\Sigur RÛs\¡gÊtis Byrjun\05 N˝ BatterÌ.mp3
+¡gÊtis Byrjun|Sigur RÛs|Sigur RÛs|Hjartaı Hamast (Bamm Bamm Bamm|-1|D:\My Music\Sigur RÛs\¡gÊtis Byrjun\06 Hjartaı Hamast (Bamm Bamm Bamm).mp3
+¡gÊtis Byrjun|Sigur RÛs|Sigur RÛs|Viırar Vel Til Loft·rasa|-1|D:\My Music\Sigur RÛs\¡gÊtis Byrjun\07 Viırar Vel Til Loft·rasa.mp3
+¡gÊtis Byrjun|Sigur RÛs|Sigur RÛs|Olsen Olsen|-1|D:\My Music\Sigur RÛs\¡gÊtis Byrjun\08 Olsen Olsen.mp3
+¡gÊtis Byrjun|Sigur RÛs|Sigur RÛs|¡gaetis Byrjun|-1|D:\My Music\Sigur RÛs\¡gÊtis Byrjun\09 ¡gaetis Byrjun.mp3
+¡gÊtis Byrjun|Sigur RÛs|Sigur RÛs|Avalon|-1|D:\My Music\Sigur RÛs\¡gÊtis Byrjun\10 Avalon.mp3
 The Essential Simon & Garfunkel|Simon & Garfunkel|Simon & Garfunkel|A Most Peculiar Man (Live)|81|D:\My Music\Simon & Garfunkel\A Most Peculiar Man (Live).mp3
 The Essential Simon & Garfunkel|Simon & Garfunkel|Simon & Garfunkel|A Poem On The Underground Wall (Live)|81|D:\My Music\Simon & Garfunkel\A Poem On The Underground Wall (Live).mp3
 S & G|S & G|S & G|null|-1|D:\My Music\Simon & Garfunkel\America.mp3
@@ -586,7 +586,7 @@ How to Dismantle an Atomic Bomb|U2|U2|All Because of You|13|D:\My Music\U2\U2 - 
 The Best of 1990-2000 [Japan]|U2|U2|Beautiful Day|20|D:\My Music\U2\U2 - Beautiful Day.mp3
 How to Dismantle an Atomic Bom|U2|U2|City of Blinding Lights|13|D:\My Music\U2\U2 - City of Blinding Lights.mp3
 How to Dismantle an Atomic Bomb|U2|U2|Crumbs From Your Table|13|D:\My Music\U2\U2 - Crumbs From Your Table.mp3
-Discoth√®que, Pt. 1 [UK]|U2|U2|Discoth√®que|17|D:\My Music\U2\U2 - Discoth√®que.mp3
+DiscothËque, Pt. 1 [UK]|U2|U2|DiscothËque|17|D:\My Music\U2\U2 - DiscothËque.mp3
 Elevation, Pt. 2 [Import CD]|U2|U2|Elevation [Tomb Raider Mix]|13|D:\My Music\U2\U2 - Elevation [Tomb Raider Mix].mp3
 All That You Can't Leave Behind|U2|U2|Elevation|13|D:\My Music\U2\U2 - Elevation.mp3
 City Of Angels|Various Artists|U2|If God Will Send His Angels|-1|D:\My Music\U2\U2 - If God Will Send His Angels.mp3
@@ -608,7 +608,7 @@ The Official UK Top 40 Singles Chart 15-04-2012|Various Artists|Gotye Feat Kimbr
 The Official UK Top 40 Singles Chart 15-04-2012|Various Artists|Usher|Climax|13|D:\My Music\UK Top 40 Singles Chart\04 Usher - Climax.mp3
 The Official UK Top 40 Singles Chart 15-04-2012|Various Artists|Nicki Minaj|Starships (Explicit Edit)|13|D:\My Music\UK Top 40 Singles Chart\05 Nicki Minaj - Starships (Explicit Edit).mp3
 The Official UK Top 40 Singles Chart 15-04-2012|Various Artists|Sean Paul|She Doesn't Mind|13|D:\My Music\UK Top 40 Singles Chart\06 Sean Paul - She Doesn't Mind.mp3
-The Official UK Top 40 Singles Chart 15-04-2012|Various Artists|Fun Feat Janelle Mon√°e|We Are Young|13|D:\My Music\UK Top 40 Singles Chart\07 Fun Feat Janelle Mon√°e - We Are Young.mp3
+The Official UK Top 40 Singles Chart 15-04-2012|Various Artists|Fun Feat Janelle Mon·e|We Are Young|13|D:\My Music\UK Top 40 Singles Chart\07 Fun Feat Janelle Mon·e - We Are Young.mp3
 The Official UK Top 40 Singles Chart 15-04-2012|Various Artists|Sway|Level Up|13|D:\My Music\UK Top 40 Singles Chart\08 Sway - Level Up.mp3
 The Official UK Top 40 Singles Chart 15-04-2012|Various Artists|Chris Brown|Turn Up The Music|13|D:\My Music\UK Top 40 Singles Chart\09 Chris Brown - Turn Up The Music.mp3
 The Official UK Top 40 Singles Chart 15-04-2012|Various Artists|Flo Rida Feat Sia|Wild Ones|13|D:\My Music\UK Top 40 Singles Chart\10 Flo Rida Feat Sia - Wild Ones.mp3
