@@ -1,5 +1,17 @@
 Rock
+Classic Rock
+Alternative
+Alternative Rock
+Alt. Rock
 Adult Alternative
+General Alternative
+Alternative & Punk
+Rock/Pop
+Modern Rock
+Punk
+Hard Rock
+Grunge Rock\Rock
+Hardcore Punk
 American Trad Rock
 Arena Rock
 Blues-Rock
@@ -7,11 +19,9 @@ British Invasion
 Death Metal/Black Metal
 Glam Rock
 Hair Metal
-Hard Rock
 Metal
 Jam Bands
 Prog-Rock/Art Rock
-Psychedelic
 Rock & Roll
 Rockabilly
 Roots Rock
@@ -19,26 +29,26 @@ Singer/Songwriter
 Southern Rock
 Surf
 Tex-Mex
-Alternative
-Alternative Rock
 College Rock
 Experimental Rock
 Goth Rock
 Grunge
-Hardcore Punk
-Hard Rock
-Indie Rock
 New Wave
 Progressive Rock
-Punk
 Shoegaze
 Steampunk
+Indie
+Indie Rock
 Pop
+General Pop
 Indie Pop
 Adult Contemporary
 Britpop
 Pop/Rock
 Soft Rock
+Post Rock
+Psychedelic
+Psychedelic Rock
 Teen Pop
 Blues
 Acoustic Blues
@@ -61,6 +71,7 @@ Ethio-jazz
 Fusion
 Hard Bop
 Latin Jazz
+Latin
 Mainstream Jazz
 Ragtime
 Smooth Jazz
@@ -93,6 +104,7 @@ Jungle/Drum’n'bass
 Techno
 Trance
 R&B/Soul
+Soul and R&B
 Contemporary R&B
 Disco
 Doo Wop
@@ -107,6 +119,8 @@ Dub
 Roots Reggae
 Ska
 Hip-Hop/Rap
+Rap & Hip-Hop
+Rap/R&B
 Alternative Rap
 Bounce
 Dirty South
@@ -199,15 +213,17 @@ Singer/Songwriter
 Alternative Folk
 Contemporary Folk
 Contemporary Singer/Songwriter
+Folk
 Folk-Rock
+Folk/Rock
 New Acoustic
 Traditional Folk
 Soundtrack
+O.S.T.
+TV Soundtrack
 Foreign Cinema
 Musicals
 Original Score
-Soundtrack
-TV Soundtrack
 Spoken Word
 Tex-Mex
 Tejano
@@ -259,6 +275,7 @@ Sing-Along
 Stories
 Classical
 Avant-Garde
+Avantgarde
 Baroque
 Chamber Music
 Chant
@@ -280,3 +297,21 @@ Novelty
 Standup Comedy
 Anime
 Disney
+Other
+Unknown
+????????
+Âu, M?
+M
+Bollywood Music
+Indian
+Acoustic
+genre
+Mashup
+Live - Acoustic
+Oldies
+Jam
+????????
+Âu, M?
+Soul And R&B
+????????
+Âu, M?

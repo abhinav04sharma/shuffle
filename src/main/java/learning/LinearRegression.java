@@ -29,16 +29,16 @@ public class LinearRegression {
   }
 
   private Matrix solveMatrix() {
-    Matrix dim = new Basic2DMatrix(features);
-    Matrix f = new Basic2DMatrix(results);
+    Matrix fea = new Basic2DMatrix(features);
+    Matrix res = new Basic2DMatrix(results);
 
-    Matrix first = dim.transpose().multiply(dim);
-    MatrixInverter inverter = first.withInverter(LinearAlgebra.GAUSS_JORDAN);
+    Matrix first = fea.transpose().multiply(fea);
+    MatrixInverter inverter = first.withInverter(LinearAlgebra.INVERTER);
 
     Matrix firstinv = null;
     try {
       firstinv = inverter.inverse();
-      Matrix second = dim.transpose().multiply(f);
+      Matrix second = fea.transpose().multiply(res);
       return firstinv.multiply(second);
     } catch (IllegalArgumentException e) {
       return null;
