@@ -6,12 +6,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.layout.Priority;
@@ -175,6 +178,21 @@ class SceneGenerator {
 
     });
 
+    // on mouse click on progress bar!
+    progress.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      public void handle(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY) {
+          Bounds b1 = progress.getLayoutBounds();
+          double mouseX = event.getX();
+          double percent = (((b1.getMinX() + mouseX) * 100) / (b1.getMaxX() - b1.getMinX()));
+          progress.setProgress((percent) / 100);
+          // do something with progress in percent
+          MediaPlayer player = mediaView.getMediaPlayer();
+          player.seek(new Duration(player.getTotalDuration().toMillis() * percent / 100));
+        }
+      }
+    });
+
     // silly invisible button used as a template to get the actual preferred
     // size of the Pause button
     Button invisiblePause = new Button("Pause");
@@ -183,7 +201,8 @@ class SceneGenerator {
     play.prefWidthProperty().bind(invisiblePause.widthProperty());
 
     // layout the scene
-    layout.setStyle("-fx-background-color: cornsilk; -fx-font-size: 20; -fx-padding: 20; -fx-alignment: center;");
+    // -fx-background-color: cornsilk;
+    layout.setStyle("-fx-font-size: 20; -fx-padding: 20; -fx-alignment: center;");
     layout.getChildren().addAll(
         invisiblePause,
         VBoxBuilder

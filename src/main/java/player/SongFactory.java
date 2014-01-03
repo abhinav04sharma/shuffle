@@ -1,7 +1,7 @@
 package player;
 
 import javafx.scene.media.MediaPlayer;
-import shuffle.LRShuffler;
+import shuffle.SVMShuffler;
 import shuffle.Shuffler;
 import tags.Song;
 
@@ -11,7 +11,7 @@ import tags.Song;
 public class SongFactory {
 
   private static Song           currentSong = null;
-  private final static Shuffler shuffle     = new LRShuffler();
+  private final static Shuffler shuffle     = new SVMShuffler();
 
   public Song initialize(String directory) {
     shuffle.initialize(directory);
