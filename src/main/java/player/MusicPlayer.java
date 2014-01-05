@@ -246,10 +246,9 @@ class SceneGenerator {
     };
 
     newPlayer.currentTimeProperty().addListener(progressChangeListener);
-    String source = newPlayer.getMedia().getSource();
-    source = source.substring(0, source.length() - ".mp3".length());
-    source = getFileNameFromURL(source);
-    currentlyPlaying.setText("Now Playing: " + source);
+    Song song = shuffler.getCurrent();
+    currentlyPlaying.setText("Now Playing: " + song.getTag().getArtist() + " - " + song.getTag().getTitle() + " [["
+        + song.getTag().getGenreDescription() + "]]");
 
   }
 

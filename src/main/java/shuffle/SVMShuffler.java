@@ -4,13 +4,16 @@
 package shuffle;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Random;
+
+import org.apache.log4j.Logger;
 
 import tags.Song;
+import tags.TagExtractor;
 import weka.classifiers.functions.SMO;
 import weka.core.Attribute;
 import weka.core.FastVector;
@@ -22,8 +25,12 @@ import weka.core.Instances;
  */
 public class SVMShuffler implements Shuffler {
 
-  private static final int    NUM_INSTANCES = 10;
-  private static final Logger log           = Logger.getLogger(SVMShuffler.class.getName());
+  private static final int    NUM_INSTANCES  = 5;
+  private static final int    HATE_THRESHOLD = 4;
+  private static final Logger log            = Logger.getLogger(SVMShuffler.class);
+
+  private int                 hateCount;
+  private boolean             hatedPrev;
 
   private List<Song>          songs;
 
@@ -63,14 +70,16 @@ public class SVMShuffler implements Shuffler {
         inst.setDataset(data);
         rating = svm.classifyInstance(inst);
       } catch (Exception e) {
-        log.info(e.getMessage());
+        log.info(e.toString());
       }
       song.setRating(rating);
     } while (false);
 
     // case: song was played, print original and predicted rating
-    if (song.isPlayed()) {
+    if (song.isPlayed() && originalRating != song.getRating()) {
       log.info(song + " Original rating: " + originalRating + " Predicted Rating: " + song.getRating());
+      // TODO: if played, don't compute anything... doing this for testing
+      song.setRating(originalRating);
     }
   }
 
@@ -109,16 +118,17 @@ public class SVMShuffler implements Shuffler {
 
   public void initialize(String directory) {
 
-    log.setLevel(Level.INFO);
     svm = new SMO();
     count = 0;
     try {
       this.tagExtractor = new TagExtractor(directory);
       tagExtractor.run();
     } catch (Exception e) {
-      log.info(e.getMessage());
+      log.info(e.toString());
     }
 
+    hateCount = 0;
+    hatedPrev = false;
     songs = tagExtractor.getSongs();
     iter = songs.iterator();
     Collections.shuffle(songs);
@@ -135,7 +145,7 @@ public class SVMShuffler implements Shuffler {
         try {
           svm.buildClassifier(data);
         } catch (Exception e) {
-          log.info(e.getMessage());
+          log.info(e.toString());
         }
         // set rating for all songs
         for (Song s : songs) {
@@ -144,7 +154,10 @@ public class SVMShuffler implements Shuffler {
         // sort according to rating
         Collections.sort(songs, Collections.reverseOrder());
         // shuffle sub list
-        Collections.shuffle(songs.subList(0, 20));
+        for (int i = 0; i < songs.size() - NUM_INSTANCES; i += NUM_INSTANCES) {
+          Collections.shuffle(songs.subList(i, i + NUM_INSTANCES), new Random(new Date().getTime()));
+          Collections.shuffle(songs.subList(i, i + NUM_INSTANCES), new Random(new Date().getTime() + NUM_INSTANCES));
+        }
         // reset counter
         count = 0;
         iter = songs.iterator();
@@ -180,8 +193,20 @@ public class SVMShuffler implements Shuffler {
     // assuming that every song is 5 mins (300 sec) long
     int rating = (int) (duration / 30);
 
-    song.setPlayed(true);
     song.setRating(rating);
+    song.setPlayed(true);
+
+    // did we hate the prev song? increment the hate-count
+    if (hatedPrev) {
+      ++hateCount;
+      // we did not hate the prev song! reset hate-count
+    } else {
+      hateCount = 0;
+    }
+
+    if (hateCount == HATE_THRESHOLD) {
+      Collections.shuffle(songs, new Random(new Date().getTime() + HATE_THRESHOLD * NUM_INSTANCES));
+    }
 
     // consume the data for training
     double values[] = new double[data.numAttributes()];
@@ -191,5 +216,12 @@ public class SVMShuffler implements Shuffler {
     Instance inst = new Instance(1.0, values);
     inst.setDataset(data);
     data.add(inst);
+
+    // did we hate this song? let the next song know!
+    if (rating < 2) {
+      hatedPrev = true;
+    } else {
+      hatedPrev = false;
+    }
   }
 }

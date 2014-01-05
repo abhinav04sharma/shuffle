@@ -19,6 +19,10 @@ public class SongFactory {
     return currentSong;
   }
 
+  public Song getCurrent() {
+    return currentSong;
+  }
+
   public Song next(MediaPlayer player) {
     shuffle.feedback(currentSong, player.getCurrentTime().toSeconds());
     currentSong = shuffle.next();

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package shuffle;
+package tags;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,8 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
-
-import tags.Song;
 
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.ID3v23Tag;

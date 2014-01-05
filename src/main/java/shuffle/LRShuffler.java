@@ -10,6 +10,7 @@ import java.util.List;
 import learning.LinearRegression;
 import learning.TooManyTrainingSetsException;
 import tags.Song;
+import tags.TagExtractor;
 
 /**
  * @author Abhinav Sharma
