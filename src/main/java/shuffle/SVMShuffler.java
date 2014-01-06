@@ -140,7 +140,7 @@ public class SVMShuffler implements Shuffler {
   public Song next() {
 
     if (iter.hasNext()) {
-      if (count == NUM_INSTANCES) {
+      if (count >= NUM_INSTANCES) {
         // compute model
         try {
           svm.buildClassifier(data);
@@ -175,7 +175,6 @@ public class SVMShuffler implements Shuffler {
     if (play.isPlayed()) {
       return next();
     }
-    ++count;
     return play;
   }
 
@@ -223,5 +222,10 @@ public class SVMShuffler implements Shuffler {
     } else {
       hatedPrev = false;
     }
+    ++count;
+  }
+
+  public List<Song> getSongs() {
+    return tagExtractor.getSongs();
   }
 }

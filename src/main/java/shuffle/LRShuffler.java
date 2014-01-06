@@ -17,13 +17,13 @@ import tags.TagExtractor;
  */
 public class LRShuffler implements Shuffler {
 
-  private TagExtractor     tagExtractor;
-  private LinearRegression lr    = new LinearRegression(2);
+  private TagExtractor           tagExtractor;
+  private final LinearRegression lr    = new LinearRegression(2);
 
-  private List<Song>       songs;
+  private List<Song>             songs;
 
-  private int              count = 0;
-  private Iterator<Song>   iter;
+  private int                    count = 0;
+  private Iterator<Song>         iter;
 
   public void initialize(String directory) {
 
@@ -90,6 +90,10 @@ public class LRShuffler implements Shuffler {
     } catch (TooManyTrainingSetsException e) {
       e.printStackTrace();
     }
+  }
+
+  public List<Song> getSongs() {
+    return tagExtractor.getSongs();
   }
 
   private void rateSong(Song song) {

@@ -6,10 +6,10 @@ import com.mpatric.mp3agic.ID3v2;
  * @author Abhinav Sharma
  */
 public class Song implements Comparable<Song> {
-  private ID3v2   tag;
-  private boolean isPlayed;
-  private double  rating;
-  private String  fileName;
+  private ID3v2        tag;
+  private boolean      isPlayed;
+  private double       rating;
+  private final String fileName;
 
   public Song(ID3v2 tag, String fileName) {
     this.setTag(tag);
@@ -54,8 +54,9 @@ public class Song implements Comparable<Song> {
     return 0;
   }
 
+  @Override
   public String toString() {
-    return tag.getArtist() + "#" + tag.getGenreDescription() + "#" + rating;
+    return getTag().getArtist() + " - " + getTag().getTitle() + " [[" + getTag().getGenreDescription() + "]]";
   }
 
 }

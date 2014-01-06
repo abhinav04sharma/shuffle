@@ -10,10 +10,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -41,15 +43,15 @@ public class TagExtractor {
   private final String               ARTISTS_META_FILE_PREFIX = "ARTISTS_META_FILE";
   private final String               SONGS_META_FILE_PREFIX   = "SONGS_META_FILE";
 
-  private final String               GENRES_META_FILE         = "src/main/resources/GENRES_META_FILE.txt";
+  private final String               GENRES_META_FILE         = "GENRES_META_FILE.txt";
 
-  private String                     dirName;
-  private String                     artistFileName;
-  private String                     songFileName;
+  private final String               dirName;
+  private final String               artistFileName;
+  private final String               songFileName;
 
   private ArrayList<HashSet<String>> artists;
-  private List<Song>                 songs                    = new ArrayList<Song>();
-  private List<String>               genres                   = new ArrayList<String>();
+  private final List<Song>           songs                    = new ArrayList<Song>();
+  private final List<String>         genres                   = new ArrayList<String>();
 
   public TagExtractor(String dirName) throws NoSuchAlgorithmException {
     this.dirName = dirName;
@@ -60,7 +62,12 @@ public class TagExtractor {
   public void run() throws IOException, ClassNotFoundException {
 
     // read genres from file
-    readAllGenres();
+    try {
+      readAllGenres();
+    } catch (URISyntaxException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
 
     // initialize artist according to the number of genres
     artists = new ArrayList<HashSet<String>>(genres.size() + 1);
@@ -152,8 +159,13 @@ public class TagExtractor {
     artists.get(pos).add(song.getTag().getArtist());
   }
 
-  private void readAllGenres() throws IOException {
-    BufferedReader br = new BufferedReader(new FileReader(GENRES_META_FILE));
+  private void readAllGenres() throws IOException, URISyntaxException {
+    BufferedReader br;
+    if (new File(GENRES_META_FILE).exists()) {
+      br = new BufferedReader(new FileReader(new File(GENRES_META_FILE)));
+    } else {
+      br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + GENRES_META_FILE)));
+    }
     String line;
     while ((line = br.readLine()) != null) {
       genres.add(line);
@@ -172,7 +184,12 @@ public class TagExtractor {
     writeSongsMetaFile();
 
     // write genre meta file
-    writeGenreMetaFile();
+    try {
+      writeGenreMetaFile();
+    } catch (URISyntaxException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   @SuppressWarnings("unchecked")
@@ -216,12 +233,11 @@ public class TagExtractor {
     writer.close();
   }
 
-  private void writeGenreMetaFile() throws FileNotFoundException {
-    PrintWriter writer = new PrintWriter(GENRES_META_FILE);
+  private void writeGenreMetaFile() throws FileNotFoundException, URISyntaxException {
+    PrintWriter writer = new PrintWriter(new File(GENRES_META_FILE));
     for (String genre : genres) {
       writer.println(genre);
     }
     writer.close();
   }
-
 }

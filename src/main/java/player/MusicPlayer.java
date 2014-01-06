@@ -1,8 +1,12 @@
 package player;
 
+import java.util.ArrayList;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,8 +15,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -81,14 +87,18 @@ class SceneGenerator {
   private ChangeListener<Duration> progressChangeListener;
 
   private final TextField          tf               = new TextField("D:/My Music");
+  private final TextField          search           = new TextField();
   private final Button             skip             = new Button("Skip");
   private final Button             play             = new Button("Pause");
   private final Button             go               = new Button("Go");
   private final ProgressBar        progress         = new ProgressBar();
+  private final ListView<Song>     listView         = new ListView<Song>();
 
   private final SongFactory        shuffler         = new SongFactory();
   private final MediaView          mediaView        = new MediaView();
   private final Label              currentlyPlaying = new Label();
+
+  private static ArrayList<Song>   songs;
 
   public Scene createScene() {
 
@@ -97,6 +107,8 @@ class SceneGenerator {
     skip.setVisible(false);
     play.setVisible(false);
     progress.setVisible(false);
+    listView.setVisible(false);
+    search.setVisible(false);
 
     // when we hit go!
     go.setOnAction(new EventHandler<ActionEvent>() {
@@ -119,10 +131,17 @@ class SceneGenerator {
           }
         });
 
+        songs = new ArrayList<Song>(shuffler.getSongs());
+        ObservableList<Song> myObservableList = FXCollections.observableList(songs);
+        listView.setItems(myObservableList);
+        listView.autosize();
+
         // enable media buttons
         skip.setVisible(true);
         play.setVisible(true);
         progress.setVisible(true);
+        listView.setVisible(true);
+        search.setVisible(true);
 
         // disable text-box and go
         tf.setVisible(false);
@@ -193,6 +212,45 @@ class SceneGenerator {
       }
     });
 
+    listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      public void handle(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY) {
+          Song song = listView.getSelectionModel().getSelectedItem();
+          MediaPlayer player = mediaView.getMediaPlayer();
+          shuffler.setCurrent(player, song);
+          MediaPlayer nextPlayer = createPlayer(getURLFileName(song.getFileName()));
+
+          mediaView.setMediaPlayer(nextPlayer);
+          player.currentTimeProperty().removeListener(progressChangeListener);
+
+          player.stop();
+          nextPlayer.play();
+          setCurrentlyPlaying(nextPlayer);
+          nextPlayer.setOnEndOfMedia(new Runnable() {
+            public void run() {
+              skip.fire();
+            }
+          });
+        }
+      }
+    });
+
+    search.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      public void handle(KeyEvent event) {
+        String text = search.getText();
+        ObservableList<Song> myObservableList = FXCollections.observableList(new ArrayList<Song>(songs));
+        ArrayList<Song> remove = new ArrayList<Song>();
+        for (Song s : myObservableList) {
+          if (!s.toString().toUpperCase().contains(text.toUpperCase())) {
+            remove.add(s);
+          }
+        }
+        myObservableList.removeAll(remove);
+        listView.setItems(myObservableList);
+      }
+
+    });
+
     // silly invisible button used as a template to get the actual preferred
     // size of the Pause button
     Button invisiblePause = new Button("Pause");
@@ -201,20 +259,20 @@ class SceneGenerator {
     play.prefWidthProperty().bind(invisiblePause.widthProperty());
 
     // layout the scene
-    // -fx-background-color: cornsilk;
-    layout.setStyle("-fx-font-size: 20; -fx-padding: 20; -fx-alignment: center;");
+    layout.setStyle("-fx-background-color: cornsilk; -fx-font-size: 20; -fx-padding: 20; -fx-alignment: center;");
     layout.getChildren().addAll(
         invisiblePause,
         VBoxBuilder
             .create()
-            .spacing(10)
-            .alignment(Pos.CENTER)
-            .children(currentlyPlaying, mediaView, HBoxBuilder.create().spacing(10).alignment(Pos.CENTER).children(tf, go).build(),
+            .spacing(20)
+            .alignment(Pos.TOP_CENTER)
+            .children(search, listView, HBoxBuilder.create().spacing(10).alignment(Pos.CENTER).children(tf, go).build(),
+                currentlyPlaying, mediaView,
                 HBoxBuilder.create().spacing(10).alignment(Pos.CENTER).children(skip, play, progress).build()).build());
     progress.setMaxWidth(Double.MAX_VALUE);
     HBox.setHgrow(progress, Priority.ALWAYS);
 
-    return new Scene(layout, 800, 600);
+    return new Scene(layout);
   }
 
   private String getURLFileName(String filename) {
@@ -226,14 +284,14 @@ class SceneGenerator {
     return null;
   }
 
-  private String getFileNameFromURL(String filename) {
-    try {
-      return URIUtil.decode(filename);
-    } catch (URIException e) {
-      e.printStackTrace();
-    }
-    return null;
-  }
+  // private String getFileNameFromURL(String filename) {
+  // try {
+  // return URIUtil.decode(filename);
+  // } catch (URIException e) {
+  // e.printStackTrace();
+  // }
+  // return null;
+  // }
 
   private void setCurrentlyPlaying(final MediaPlayer newPlayer) {
 
@@ -247,8 +305,7 @@ class SceneGenerator {
 
     newPlayer.currentTimeProperty().addListener(progressChangeListener);
     Song song = shuffler.getCurrent();
-    currentlyPlaying.setText("Now Playing: " + song.getTag().getArtist() + " - " + song.getTag().getTitle() + " [["
-        + song.getTag().getGenreDescription() + "]]");
+    currentlyPlaying.setText("Now Playing: " + song);
 
   }
 

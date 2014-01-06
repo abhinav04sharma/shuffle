@@ -1,5 +1,7 @@
 package shuffle;
 
+import java.util.List;
+
 import tags.Song;
 
 /**
@@ -11,5 +13,7 @@ public interface Shuffler {
   public Song next();
 
   public void feedback(Song song, double duration);
+
+  public List<Song> getSongs();
 
 }
