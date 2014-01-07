@@ -1,10 +1,7 @@
-package player;
+package shuffle;
 
 import java.util.List;
 
-import javafx.scene.media.MediaPlayer;
-import shuffle.SVMShuffler;
-import shuffle.Shuffler;
 import tags.Song;
 
 /**
@@ -25,13 +22,13 @@ public class SongFactory {
     return currentSong;
   }
 
-  public void setCurrent(MediaPlayer player, Song song) {
-    feedback(player);
+  public void setCurrent(double prevSongDuration, Song song) {
+    feedback(prevSongDuration);
     currentSong = song;
   }
 
-  public Song next(MediaPlayer player) {
-    feedback(player);
+  public Song next(double prevSongDuration) {
+    feedback(prevSongDuration);
     currentSong = shuffle.next();
     return currentSong;
   }
@@ -40,7 +37,7 @@ public class SongFactory {
     return shuffle.getSongs();
   }
 
-  private void feedback(MediaPlayer player) {
-    shuffle.feedback(currentSong, player.getCurrentTime().toSeconds());
+  private void feedback(double prevSongDuration) {
+    shuffle.feedback(currentSong, prevSongDuration);
   }
 }
