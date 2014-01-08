@@ -58,7 +58,7 @@ public class SVMShuffler implements Shuffler {
         artistIndex = data.attribute(1).indexOfValue(song.getTag().getArtist());
       }
 
-      // index not found so... -ve infinity!
+      // index not found so... zero rating!
       if (genreIndex == -1 || artistIndex == -1) {
         song.setRating(0);
         break;
@@ -87,16 +87,18 @@ public class SVMShuffler implements Shuffler {
     Instances instances;
     // make individual attributes
     FastVector labels = new FastVector();
-    for (String element : new HashSet<String>(tagExtractor.getGenres())) {
-      labels.addElement(element);
-    }
-    Attribute genreAttr = new Attribute("genre", labels);
-
-    labels = new FastVector();
     for (String element : new HashSet<String>(tagExtractor.getArtists())) {
       labels.addElement(element);
     }
     Attribute artistAttr = new Attribute("artist", labels);
+
+    labels = new FastVector();
+    for (String element : new HashSet<String>(tagExtractor.getGenres())) {
+      labels.addElement(element);
+    }
+    Attribute genreAttr = new Attribute("genre", labels);
+    // genre will have more influence than artist
+    genreAttr.setWeight(artistAttr.weight() * 2);
 
     labels = new FastVector();
     for (String element : new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }) {
