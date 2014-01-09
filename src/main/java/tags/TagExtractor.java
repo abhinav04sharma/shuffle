@@ -16,12 +16,6 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.nio.file.FileSystems;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -81,23 +75,8 @@ public class TagExtractor {
       return;
     }
 
-    // go through all mp3s in the dir and fill the DSs
-    Path fn = FileSystems.getDefault().getPath(dirName);
-    Files.walkFileTree(fn, new SimpleFileVisitor<Path>() {
-      @Override
-      public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if (file.toString().endsWith(".mp3")) {
-          try {
-            extractId3v2Tags(file);
-          } catch (UnsupportedTagException e) {
-            e.printStackTrace();
-          } catch (InvalidDataException e) {
-            e.printStackTrace();
-          }
-        }
-        return FileVisitResult.CONTINUE;
-      }
-    });
+    // walk all mp3 and fetch tags
+    walkDir(dirName);
 
     // make meta files for faster retrieval next time
     writeMetaFiles();
@@ -132,16 +111,35 @@ public class TagExtractor {
     return genres.indexOf(song.getTag().getGenreDescription());
   }
 
+  private void walkDir(String dir) {
+    File[] files = new File(dir).listFiles();
+    for (File file : files) {
+      if (file.isDirectory()) {
+        walkDir(file.toString());
+      } else if (file.toString().endsWith(".mp3")) {
+        try {
+          extractId3v2Tags(file.getAbsolutePath());
+        } catch (UnsupportedTagException e) {
+          e.printStackTrace();
+        } catch (InvalidDataException e) {
+          e.printStackTrace();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
   private String getFileName(String dir, String prefix) throws NoSuchAlgorithmException {
     return DigestUtils.md5Hex(prefix + dir) + ".txt";
   }
 
-  private void extractId3v2Tags(Path filename) throws UnsupportedTagException, InvalidDataException, IOException {
-    Mp3File songFile = new Mp3File(filename.toString());
+  private void extractId3v2Tags(String filename) throws UnsupportedTagException, InvalidDataException, IOException {
+    Mp3File songFile = new Mp3File(filename);
     if (songFile.hasId3v2Tag()) {
       ID3v2 id3v2tag = songFile.getId3v2Tag();
       if (id3v2tag.getGenreDescription() != null && id3v2tag.getArtist() != null) {
-        Song song = new Song(id3v2tag, filename.toAbsolutePath().toString());
+        Song song = new Song(id3v2tag, filename);
         // TODO: we're adding it in the end, that means they are not logically
         // related. Not cool!
         if (!genres.contains(song.getTag().getGenreDescription())) {

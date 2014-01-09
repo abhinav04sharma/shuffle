@@ -10,8 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.log4j.Logger;
-
 import tags.Song;
 import tags.TagExtractor;
 import weka.classifiers.functions.SMO;
@@ -25,21 +23,21 @@ import weka.core.Instances;
  */
 public class SVMShuffler implements Shuffler {
 
-  private static final int    NUM_INSTANCES  = 5;
-  private static final int    HATE_THRESHOLD = 4;
-  private static final Logger log            = Logger.getLogger(SVMShuffler.class);
+  private static final int NUM_INSTANCES  = 5;
+  // hate threshold must be greater than
+  private static final int HATE_THRESHOLD = NUM_INSTANCES;
 
-  private int                 hateCount;
-  private boolean             hatedPrev;
+  private int              hateCount;
+  private boolean          hatedPrev;
 
-  private List<Song>          songs;
+  private List<Song>       songs;
 
-  private TagExtractor        tagExtractor;
-  private SMO                 svm;
-  private Instances           data;
+  private TagExtractor     tagExtractor;
+  private SMO              svm;
+  private Instances        data;
 
-  private int                 count;
-  private Iterator<Song>      iter;
+  private int              count;
+  private Iterator<Song>   iter;
 
   private void rateSong(Song song) {
     double originalRating;
@@ -70,14 +68,14 @@ public class SVMShuffler implements Shuffler {
         inst.setDataset(data);
         rating = svm.classifyInstance(inst);
       } catch (Exception e) {
-        log.info(e.toString());
+        System.out.println(e.toString());
       }
       song.setRating(rating);
     } while (false);
 
     // case: song was played, print original and predicted rating
     if (song.isPlayed() && originalRating != song.getRating()) {
-      log.info(song + " Original rating: " + originalRating + " Predicted Rating: " + song.getRating());
+      System.out.println(song + " Original rating: " + originalRating + " Predicted Rating: " + song.getRating());
       // TODO: if played, don't compute anything... doing this for testing
       song.setRating(originalRating);
     }
@@ -100,6 +98,7 @@ public class SVMShuffler implements Shuffler {
     // genre will have more influence than artist
     genreAttr.setWeight(artistAttr.weight() * 2);
 
+    // rating from 0 to 9
     labels = new FastVector();
     for (String element : new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }) {
       labels.addElement(element);
@@ -126,7 +125,7 @@ public class SVMShuffler implements Shuffler {
       this.tagExtractor = new TagExtractor(directory);
       tagExtractor.run();
     } catch (Exception e) {
-      log.info(e.toString());
+      System.out.println(e.toString());
     }
 
     hateCount = 0;
@@ -147,7 +146,7 @@ public class SVMShuffler implements Shuffler {
         try {
           svm.buildClassifier(data);
         } catch (Exception e) {
-          log.info(e.toString());
+          System.out.println(e.toString());
         }
         // set rating for all songs
         for (Song s : songs) {
@@ -155,15 +154,15 @@ public class SVMShuffler implements Shuffler {
         }
         // sort according to rating
         Collections.sort(songs, Collections.reverseOrder());
-        // shuffle sub list
+        // shuffle sub lists
         for (int i = 0; i < songs.size() - NUM_INSTANCES; i += NUM_INSTANCES) {
           Collections.shuffle(songs.subList(i, i + NUM_INSTANCES), new Random(new Date().getTime()));
-          Collections.shuffle(songs.subList(i, i + NUM_INSTANCES), new Random(new Date().getTime() + NUM_INSTANCES));
+          // Collections.shuffle(songs.subList(i, i + NUM_INSTANCES), new Random(new Date().getTime() + NUM_INSTANCES));
         }
         // reset counter
         count = 0;
         iter = songs.iterator();
-        // reset linear regression
+        // reset SVM
         svm = new SMO();
         data = makeDataContainer();
       }
