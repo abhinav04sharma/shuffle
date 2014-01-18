@@ -12,8 +12,8 @@ public class SongFactory {
   private static Song           currentSong = null;
   private final static Shuffler shuffle     = new SVMShuffler();
 
-  public Song initialize(String directory) {
-    shuffle.initialize(directory);
+  public Song initialize(String musicDirectory, String dataDirectory) {
+    shuffle.initialize(musicDirectory, dataDirectory);
     currentSong = shuffle.next();
     return currentSong;
   }
@@ -22,13 +22,13 @@ public class SongFactory {
     return currentSong;
   }
 
-  public void setCurrent(double prevSongDuration, Song song) {
-    feedback(prevSongDuration);
+  public void setCurrent(double prevSongDuration, double prevSongMaxDuration, Song song) {
+    feedback(prevSongDuration, prevSongMaxDuration);
     currentSong = song;
   }
 
-  public Song next(double prevSongDuration) {
-    feedback(prevSongDuration);
+  public Song next(double prevSongDuration, double prevSongMaxDuration) {
+    feedback(prevSongDuration, prevSongMaxDuration);
     currentSong = shuffle.next();
     return currentSong;
   }
@@ -37,7 +37,7 @@ public class SongFactory {
     return shuffle.getSongs();
   }
 
-  private void feedback(double prevSongDuration) {
-    shuffle.feedback(currentSong, prevSongDuration);
+  private void feedback(double prevSongDuration, double prevSongMaxDuration) {
+    shuffle.feedback(currentSong, prevSongDuration, prevSongMaxDuration);
   }
 }

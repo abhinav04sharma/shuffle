@@ -11,11 +11,11 @@ import org.la4j.matrix.dense.Basic2DMatrix;
 public class LinearRegression {
 
   private static final int MAX_TRAINING_SETS = 1000;
-  private int numFeatures;
-  private double features[][];
-  private double results[][];
-  private int currentPos = 0;
-  private double model[];
+  private final int        numFeatures;
+  private final double     features[][];
+  private final double     results[][];
+  private int              currentPos        = 0;
+  private final double     model[];
 
   public LinearRegression(int numFeatures) {
     this.numFeatures = numFeatures;
@@ -23,7 +23,7 @@ public class LinearRegression {
     this.results = new double[MAX_TRAINING_SETS][1];
     this.model = new double[numFeatures + 1];
   }
-  
+
   public void reset() {
     this.currentPos = 0;
   }
@@ -52,7 +52,7 @@ public class LinearRegression {
     }
     System.out.println("Model: " + model.toString());
   }
-  
+
   public double[] getModel() {
     return model;
   }

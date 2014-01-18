@@ -39,18 +39,38 @@ public class TagExtractor {
 
   private final String               GENRES_META_FILE         = "GENRES_META_FILE.txt";
 
-  private final String               dirName;
-  private final String               artistFileName;
-  private final String               songFileName;
+  private String                     musicDirectory;
+  private final String               dataDirectory;
+
+  private String                     genreFileName;
+  private String                     artistFileName;
+  private String                     songFileName;
 
   private ArrayList<HashSet<String>> artists;
   private final List<Song>           songs                    = new ArrayList<Song>();
   private final List<String>         genres                   = new ArrayList<String>();
 
-  public TagExtractor(String dirName) throws NoSuchAlgorithmException {
-    this.dirName = dirName;
-    this.artistFileName = getFileName(dirName, ARTISTS_META_FILE_PREFIX);
-    this.songFileName = getFileName(dirName, SONGS_META_FILE_PREFIX);
+  private final boolean              fileListProvided;
+  private List<String>               fileList;
+
+  public TagExtractor(String musicDirectory, String dataDirectory) throws NoSuchAlgorithmException {
+    this.fileListProvided = false;
+    this.musicDirectory = musicDirectory;
+    this.dataDirectory = dataDirectory;
+    initializeFileNames();
+  }
+
+  public TagExtractor(List<String> fileNames, String dataDirectory) throws NoSuchAlgorithmException {
+    this.fileListProvided = true;
+    this.fileList = fileNames;
+    this.dataDirectory = dataDirectory;
+    initializeFileNames();
+  }
+
+  private void initializeFileNames() throws NoSuchAlgorithmException {
+    this.artistFileName = new File(this.dataDirectory, getFileName(musicDirectory, ARTISTS_META_FILE_PREFIX)).getAbsolutePath();
+    this.songFileName = new File(this.dataDirectory, getFileName(musicDirectory, SONGS_META_FILE_PREFIX)).getAbsolutePath();
+    this.genreFileName = new File(this.dataDirectory, GENRES_META_FILE).getAbsolutePath();
   }
 
   public void run() throws IOException, ClassNotFoundException {
@@ -75,8 +95,23 @@ public class TagExtractor {
       return;
     }
 
-    // walk all mp3 and fetch tags
-    walkDir(dirName);
+    // we got a list of file names, just read them (no need to recurse)
+    if (fileListProvided) {
+      for (String fileName : fileList) {
+        try {
+          extractId3v2Tags(fileName);
+        } catch (UnsupportedTagException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        } catch (InvalidDataException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+    } else {
+      // walk all mp3 and fetch tags
+      walkDir(musicDirectory);
+    }
 
     // make meta files for faster retrieval next time
     writeMetaFiles();
@@ -159,8 +194,11 @@ public class TagExtractor {
 
   private void readAllGenres() throws IOException, URISyntaxException {
     BufferedReader br;
-    if (new File(GENRES_META_FILE).exists()) {
-      br = new BufferedReader(new FileReader(new File(GENRES_META_FILE)));
+    File fsGenreFile = new File(genreFileName);
+    // case: get from file-system
+    if (fsGenreFile.exists()) {
+      br = new BufferedReader(new FileReader(fsGenreFile));
+      // case: not present in file-system, get from within jar
     } else {
       br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + GENRES_META_FILE)));
     }
@@ -172,6 +210,11 @@ public class TagExtractor {
   }
 
   private void writeMetaFiles() throws IOException {
+    // make data dir if it does not exists
+    File dataDir = new File(dataDirectory);
+    if (!dataDir.exists()) {
+      dataDir.mkdirs();
+    }
     // write artists meta file
     FileOutputStream fos = new FileOutputStream(artistFileName);
     ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -232,7 +275,7 @@ public class TagExtractor {
   }
 
   private void writeGenreMetaFile() throws FileNotFoundException, URISyntaxException {
-    PrintWriter writer = new PrintWriter(new File(GENRES_META_FILE));
+    PrintWriter writer = new PrintWriter(new File(genreFileName));
     for (String genre : genres) {
       writer.println(genre);
     }

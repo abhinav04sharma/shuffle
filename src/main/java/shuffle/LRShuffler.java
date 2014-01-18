@@ -25,10 +25,10 @@ public class LRShuffler implements Shuffler {
   private int                    count = 0;
   private Iterator<Song>         iter;
 
-  public void initialize(String directory) {
+  public void initialize(String musicDirectory, String dataDirectory) {
 
     try {
-      this.tagExtractor = new TagExtractor(directory);
+      this.tagExtractor = new TagExtractor(musicDirectory, dataDirectory);
       tagExtractor.run();
     } catch (Exception e) {
       e.printStackTrace();
@@ -76,17 +76,17 @@ public class LRShuffler implements Shuffler {
     return iter.next();
   }
 
-  public void feedback(Song song, double duration) {
+  public void feedback(Song song, double durationPlayed, double maxDuration) {
     // get indices
     int genreIndex = tagExtractor.getGenreIndex(song);
     int artistIndex = tagExtractor.getArtistIndex(song);
 
     song.setPlayed(true);
-    song.setRating(duration);
+    song.setRating(durationPlayed);
 
     // consume the data for training
     try {
-      lr.consumeTrainingData(duration, genreIndex + 1, artistIndex + 1);
+      lr.consumeTrainingData(durationPlayed, genreIndex + 1, artistIndex + 1);
     } catch (TooManyTrainingSetsException e) {
       e.printStackTrace();
     }
