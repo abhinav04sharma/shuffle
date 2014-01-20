@@ -18,6 +18,10 @@ public class SongFactory {
     return currentSong;
   }
 
+  public List<Song> getSongs() {
+    return shuffle.getSongs();
+  }
+
   public Song getCurrent() {
     return currentSong;
   }
@@ -33,8 +37,10 @@ public class SongFactory {
     return currentSong;
   }
 
-  public List<Song> getSongs() {
-    return shuffle.getSongs();
+  public Song prev(double prevSongDuration, double prevSongMaxDuration) {
+    feedback(prevSongDuration, prevSongMaxDuration);
+    currentSong = shuffle.prev();
+    return currentSong;
   }
 
   private void feedback(double prevSongDuration, double prevSongMaxDuration) {

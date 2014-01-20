@@ -56,7 +56,7 @@ public class Song implements Comparable<Song> {
 
   @Override
   public String toString() {
-    return getTag().getArtist() + " - " + getTag().getTitle() + " [[" + getTag().getGenreDescription() + "]]";
+    return getTag().getTitle();
   }
 
 }

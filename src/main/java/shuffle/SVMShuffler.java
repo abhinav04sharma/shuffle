@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 import tags.Song;
-import tags.TagExtractor;
 import weka.classifiers.functions.SMO;
 import weka.core.Attribute;
 import weka.core.FastVector;
@@ -19,143 +16,28 @@ import weka.core.Instances;
 /**
  * @author Abhinav Sharma
  */
-public class SVMShuffler implements Shuffler {
+public class SVMShuffler extends Shuffler {
+  private static final int           MAX_RATING = 10;
 
-  private static final int           NUM_INSTANCES = 5;
-  private static final int           MAX_RATING    = 10;
-
-  private int                        hateCount;
-  private boolean                    hatedPrev;
-
-  private List<Song>                 songs;
-  private ArrayList<ArrayList<Song>> songTable;
-
-  private TagExtractor               tagExtractor;
   private SMO                        svm;
   private Instances                  data;
+  private ArrayList<ArrayList<Song>> songTable;
 
-  private int                        count;
-  private Iterator<Song>             iter;
-
+  @Override
   public void initialize(String musicDirectory, String dataDirectory) {
-
+    super.initialize(musicDirectory, dataDirectory);
     svm = new SMO();
-    count = 0;
-    try {
-      this.tagExtractor = new TagExtractor(musicDirectory, dataDirectory);
-      tagExtractor.run();
-    } catch (Exception e) {
-      System.out.println(e.toString());
-    }
-
-    hateCount = 0;
-    hatedPrev = false;
-    songs = tagExtractor.getSongs();
-    iter = songs.iterator();
-    Collections.shuffle(songs);
-
     data = makeDataContainer();
-
   }
 
-  public Song next() {
-
-    if (iter.hasNext()) {
-
-      // user hated our learning, re-shuffle
-      if (hateCount >= NUM_INSTANCES - 1) {
-        System.out.println("So much hate!");
-        Collections.shuffle(songs, new Random(new Date().getTime() + new Random(NUM_INSTANCES).nextLong()));
-        resetCounters();
-        next();
-      }
-
-      if (count >= NUM_INSTANCES) {
-        // compute model
-        try {
-          svm.buildClassifier(data);
-        } catch (Exception e) {
-          System.out.println(e.toString());
-        }
-
-        // rate all songs
-        rateSongs();
-
-        // shuffle sub lists
-        for (int i = 0; i < songs.size() - NUM_INSTANCES; i += NUM_INSTANCES) {
-          Collections.shuffle(songs.subList(i, i + NUM_INSTANCES), new Random(new Date().getTime()));
-        }
-
-        // reset counters
-        resetCounters();
-
-        // reset SVM
-        svm = new SMO();
-        data = makeDataContainer();
-      }
-    } else {
-      resetCounters();
-    }
-
-    Song play = iter.next();
-
-    // skip already played songs
-    if (play.isPlayed()) {
-      return next();
-    }
-
-    return play;
-  }
-
-  public void feedback(Song song, double durationPlayed, double maxDuration) {
-    // get indices
-    String genre = song.getTag().getGenreDescription();
-    String artist = song.getTag().getArtist();
-
-    if (genre == null)
-      genre = "Other";
-
-    if (artist == null)
-      artist = "Others";
-
+  @Override
+  protected int getRating(double durationPlayed, double maxDuration) {
     int rating = (int) (durationPlayed / maxDuration * (MAX_RATING - 1));
-
-    song.setRating(rating);
-    song.setPlayed(true);
-
-    // consume the data for training
-    double values[] = new double[data.numAttributes()];
-    values[0] = data.attribute(0).indexOfValue(genre);
-    values[1] = data.attribute(1).indexOfValue(artist);
-    values[2] = data.attribute(2).indexOfValue(Integer.toString(rating));
-    Instance inst = new Instance(1.0, values);
-    inst.setDataset(data);
-    data.add(inst);
-
-    // did we hate the prev song? increment the hate-count
-    if (hatedPrev) {
-      ++hateCount;
-      // we did not hate the prev song! reset hate-count
-    } else {
-      hateCount = 0;
-    }
-
-    // did we hate this song? let the next song know!
-    if (rating < 1) {
-      hatedPrev = true;
-    } else {
-      hatedPrev = false;
-    }
-
-    // increment count
-    ++count;
+    return rating;
   }
 
-  public List<Song> getSongs() {
-    return tagExtractor.getSongs();
-  }
-
-  private void rateSongs() {
+  @Override
+  protected void rateSongs() {
     // new song table
     songTable = new ArrayList<ArrayList<Song>>(MAX_RATING);
     for (int i = 0; i < MAX_RATING; ++i) {
@@ -173,15 +55,86 @@ public class SVMShuffler implements Shuffler {
       songs.addAll(songTable.get(i));
     }
 
+    // shuffle sub lists
+    for (int i = 0; i < songs.size() - NUM_INSTANCES; i += NUM_INSTANCES) {
+      Collections.shuffle(songs.subList(i, i + NUM_INSTANCES), new Random(new Date().getTime()));
+    }
+  }
+
+  @Override
+  protected void consumeData(Song song, int rating) {
+
+    String genre = song.getTag().getGenreDescription();
+    String artist = song.getTag().getArtist();
+
+    if (genre == null)
+      genre = "Other";
+
+    if (artist == null)
+      artist = "Others";
+
+    // consume the data for training
+    double values[] = new double[data.numAttributes()];
+    values[0] = data.attribute(0).indexOfValue(genre);
+    values[1] = data.attribute(1).indexOfValue(artist);
+    values[2] = data.attribute(2).indexOfValue(Integer.toString(rating));
+    Instance inst = new Instance(1.0, values);
+    inst.setDataset(data);
+    data.add(inst);
+  }
+
+  @Override
+  protected void computeModel() {
+    // compute model
+    try {
+      svm.buildClassifier(data);
+    } catch (Exception e) {
+      System.out.println(e.toString());
+    }
+  }
+
+  @Override
+  protected void resetLearner() {
+    // reset SVM
+    svm = new SMO();
+    data = makeDataContainer();
+  }
+
+  private Instances makeDataContainer() {
+    Instances instances;
+
+    // make individual attributes
+    FastVector labels = new FastVector();
+    for (String element : new HashSet<String>(getArtists()))
+      labels.addElement(element);
+    Attribute artistAttr = new Attribute("artist", labels);
+
+    labels = new FastVector();
+    for (String element : new HashSet<String>(getGenres()))
+      labels.addElement(element);
+    Attribute genreAttr = new Attribute("genre", labels);
+    // genre will have more influence than artist
+    genreAttr.setWeight(artistAttr.weight() * 2);
+
+    // rating from 0 to MAX_RATING
+    labels = new FastVector();
+    for (int i = 0; i < MAX_RATING; ++i)
+      labels.addElement(Integer.toString(i));
+    Attribute ratingAttr = new Attribute("rating", labels);
+
+    // add all attributes to data-set
+    FastVector attributes = new FastVector();
+    attributes.addElement(genreAttr);
+    attributes.addElement(artistAttr);
+    attributes.addElement(ratingAttr);
+
+    instances = new Instances("songs", attributes, NUM_INSTANCES);
+    instances.setClassIndex(instances.numAttributes() - 1);
+
+    return instances;
   }
 
   private void rateSong(Song song) {
-
-    // if the song is played just update table
-    if (song.isPlayed()) {
-      songTable.get((int) Math.floor(song.getRating())).add(song);
-      return;
-    }
 
     int genreIndex = -1;
     int artistIndex = -1;
@@ -210,43 +163,4 @@ public class SVMShuffler implements Shuffler {
     songTable.get((int) Math.floor(rating)).add(song);
   }
 
-  private Instances makeDataContainer() {
-    Instances instances;
-
-    // make individual attributes
-    FastVector labels = new FastVector();
-    for (String element : new HashSet<String>(tagExtractor.getArtists()))
-      labels.addElement(element);
-    Attribute artistAttr = new Attribute("artist", labels);
-
-    labels = new FastVector();
-    for (String element : new HashSet<String>(tagExtractor.getGenres()))
-      labels.addElement(element);
-    Attribute genreAttr = new Attribute("genre", labels);
-    // genre will have more influence than artist
-    genreAttr.setWeight(artistAttr.weight() * 2);
-
-    // rating from 0 to MAX_RATING
-    labels = new FastVector();
-    for (int i = 0; i < MAX_RATING; ++i)
-      labels.addElement(Integer.toString(i));
-    Attribute ratingAttr = new Attribute("rating", labels);
-
-    // add all attributes to data-set
-    FastVector attributes = new FastVector();
-    attributes.addElement(genreAttr);
-    attributes.addElement(artistAttr);
-    attributes.addElement(ratingAttr);
-
-    instances = new Instances("songs", attributes, NUM_INSTANCES);
-    instances.setClassIndex(instances.numAttributes() - 1);
-
-    return instances;
-  }
-
-  private void resetCounters() {
-    count = hateCount = 0;
-    hatedPrev = false;
-    iter = songs.iterator();
-  }
 }
