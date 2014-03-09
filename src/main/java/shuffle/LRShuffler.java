@@ -1,6 +1,7 @@
 package shuffle;
 
 import java.util.Collections;
+import java.util.List;
 
 import learning.LinearRegression;
 import learning.TooManyTrainingSetsException;
@@ -12,6 +13,12 @@ import tags.Song;
 public class LRShuffler extends Shuffler {
 
   private LinearRegression lr;
+
+  @Override
+  public void initialize(List<Song> songs, List<String> artists, List<String> genres) {
+    super.initialize(songs, artists, genres);
+    lr = new LinearRegression(2);
+  }
 
   @Override
   public void initialize(String musicDirectory, String dataDirectory) {
@@ -39,8 +46,8 @@ public class LRShuffler extends Shuffler {
   @Override
   protected void consumeData(Song song, int rating) {
     // get indices
-    int genreIndex = getTagExtractor().getGenreIndex(song);
-    int artistIndex = getTagExtractor().getArtistIndex(song);
+    int genreIndex = getGenreIndex(song);
+    int artistIndex = getArtistIndex(song);
 
     // consume the data for training
     try {
@@ -63,8 +70,8 @@ public class LRShuffler extends Shuffler {
 
   private void rateSong(Song song) {
     // get artist and genre indices
-    int genreIndex = getTagExtractor().getGenreIndex(song);
-    int artistIndex = getTagExtractor().getArtistIndex(song);
+    int genreIndex = getGenreIndex(song);
+    int artistIndex = getArtistIndex(song);
 
     // index not found so... zero!
     if (genreIndex == -1 || artistIndex == -1) {

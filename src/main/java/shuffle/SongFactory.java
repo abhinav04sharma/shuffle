@@ -12,6 +12,12 @@ public class SongFactory {
   private static Song           currentSong = null;
   private final static Shuffler shuffle     = new SVMShuffler();
 
+  public Song initialize(List<Song> songs, List<String> artists, List<String> genres) {
+    shuffle.initialize(songs, artists, genres);
+    currentSong = shuffle.next();
+    return currentSong;
+  }
+
   public Song initialize(String musicDirectory, String dataDirectory) {
     shuffle.initialize(musicDirectory, dataDirectory);
     currentSong = shuffle.next();

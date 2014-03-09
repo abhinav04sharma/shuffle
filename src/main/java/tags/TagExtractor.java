@@ -24,7 +24,6 @@ import java.util.List;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import com.mpatric.mp3agic.ID3v2;
-import com.mpatric.mp3agic.ID3v23Tag;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
@@ -133,19 +132,6 @@ public class TagExtractor {
     return ret;
   }
 
-  public int getArtistIndex(Song song) {
-    int pos = getGenreIndex(song) + 1;
-    int index = new ArrayList<String>(artists.get(pos)).indexOf(song.getTag().getArtist());
-    for (int i = 0; i <= pos; ++i) {
-      index += artists.get(i).size();
-    }
-    return index;
-  }
-
-  public int getGenreIndex(Song song) {
-    return genres.indexOf(song.getTag().getGenreDescription());
-  }
-
   private void walkDir(String dir) {
     File[] files = new File(dir).listFiles();
     for (File file : files) {
@@ -174,11 +160,17 @@ public class TagExtractor {
     if (songFile.hasId3v2Tag()) {
       ID3v2 id3v2tag = songFile.getId3v2Tag();
       if (id3v2tag.getGenreDescription() != null && id3v2tag.getArtist() != null) {
-        Song song = new Song(id3v2tag, filename);
+        Tag tag = new Tag();
+        tag.album = id3v2tag.getAlbum();
+        tag.artist = id3v2tag.getArtist();
+        tag.title = id3v2tag.getTitle();
+        tag.genre = id3v2tag.getGenreDescription();
+
+        Song song = new Song(tag, filename);
         // TODO: we're adding it in the end, that means they are not logically
         // related. Not cool!
-        if (!genres.contains(song.getTag().getGenreDescription())) {
-          genres.add(song.getTag().getGenreDescription());
+        if (!genres.contains(song.getTag().genre)) {
+          genres.add(song.getTag().genre);
           artists.add(new HashSet<String>());
         }
         addArtist(song);
@@ -188,8 +180,8 @@ public class TagExtractor {
   }
 
   private void addArtist(Song song) {
-    int pos = getGenreIndex(song) + 1;
-    artists.get(pos).add(song.getTag().getArtist());
+    int pos = genres.indexOf(song.getTag().genre) + 1;
+    artists.get(pos).add(song.getTag().artist);
   }
 
   private void readAllGenres() throws IOException, URISyntaxException {
@@ -253,13 +245,12 @@ public class TagExtractor {
 
     while ((line = br.readLine()) != null) {
       String array[] = line.split("\\|");
-      ID3v23Tag tag = new ID3v23Tag();
-      tag.setAlbum(array[0]);
-      tag.setAlbumArtist(array[1]);
-      tag.setArtist(array[2]);
-      tag.setTitle(array[3]);
-      tag.setGenre(Integer.parseInt(array[4]));
-      songs.add(new Song(tag, array[5]));
+      Tag tag = new Tag();
+      tag.album = array[0];
+      tag.artist = array[1];
+      tag.title = array[2];
+      tag.genre = array[3];
+      songs.add(new Song(tag, array[4]));
     }
     br.close();
   }
@@ -268,8 +259,8 @@ public class TagExtractor {
 
     PrintWriter writer = new PrintWriter(songFileName);
     for (Song tag : songs) {
-      writer.println(tag.getTag().getAlbum() + "|" + tag.getTag().getAlbumArtist() + "|" + tag.getTag().getArtist() + "|"
-          + tag.getTag().getTitle() + "|" + tag.getTag().getGenre() + "|" + tag.getFileName());
+      writer.println(tag.getTag().album + "|" + tag.getTag().artist + "|" + tag.getTag().title + "|" + tag.getTag().genre + "|"
+          + tag.getFileName());
     }
     writer.close();
   }

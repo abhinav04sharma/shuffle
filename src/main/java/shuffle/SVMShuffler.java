@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 
 import tags.Song;
@@ -22,6 +23,13 @@ public class SVMShuffler extends Shuffler {
   private SMO                        svm;
   private Instances                  data;
   private ArrayList<ArrayList<Song>> songTable;
+
+  @Override
+  public void initialize(List<Song> songs, List<String> artists, List<String> genres) {
+    super.initialize(songs, artists, genres);
+    svm = new SMO();
+    data = makeDataContainer();
+  }
 
   @Override
   public void initialize(String musicDirectory, String dataDirectory) {
@@ -64,8 +72,8 @@ public class SVMShuffler extends Shuffler {
   @Override
   protected void consumeData(Song song, int rating) {
 
-    String genre = song.getTag().getGenreDescription();
-    String artist = song.getTag().getArtist();
+    String genre = song.getTag().genre;
+    String artist = song.getTag().artist;
 
     if (genre == null)
       genre = "Other";
@@ -141,9 +149,9 @@ public class SVMShuffler extends Shuffler {
     double rating = 0;
 
     // get artist and genre indices
-    if (song.getTag().getGenreDescription() != null && song.getTag().getArtist() != null) {
-      genreIndex = data.attribute(0).indexOfValue(song.getTag().getGenreDescription());
-      artistIndex = data.attribute(1).indexOfValue(song.getTag().getArtist());
+    if (song.getTag().genre != null && song.getTag().artist != null) {
+      genreIndex = data.attribute(0).indexOfValue(song.getTag().genre);
+      artistIndex = data.attribute(1).indexOfValue(song.getTag().artist);
     }
 
     // try to classify song, according to model

@@ -1,17 +1,15 @@
 package tags;
 
-import com.mpatric.mp3agic.ID3v2;
-
 /**
  * @author Abhinav Sharma
  */
 public class Song implements Comparable<Song> {
-  private ID3v2        tag;
+  private Tag          tag;
   private boolean      isPlayed;
   private double       rating;
   private final String fileName;
 
-  public Song(ID3v2 tag, String fileName) {
+  public Song(Tag tag, String fileName) {
     this.setTag(tag);
     this.fileName = fileName;
     this.rating = 0;
@@ -26,11 +24,11 @@ public class Song implements Comparable<Song> {
     this.rating = rating;
   }
 
-  public ID3v2 getTag() {
+  public Tag getTag() {
     return tag;
   }
 
-  public void setTag(ID3v2 tag) {
+  public void setTag(Tag tag) {
     this.tag = tag;
   }
 
@@ -56,7 +54,7 @@ public class Song implements Comparable<Song> {
 
   @Override
   public String toString() {
-    return getTag().getTitle();
+    return getTag().title;
   }
 
 }

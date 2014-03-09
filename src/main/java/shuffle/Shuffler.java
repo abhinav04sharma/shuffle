@@ -22,6 +22,8 @@ public abstract class Shuffler {
   private boolean            hatedPrev;
 
   protected List<Song>       songs;
+  protected List<String>     artists;
+  protected List<String>     genres;
   protected LinkedList<Song> playedSongs;
 
   private TagExtractor       tagExtractor;
@@ -29,6 +31,18 @@ public abstract class Shuffler {
   private int                count;
   private Iterator<Song>     iter;
   private ListIterator<Song> prevIter;
+
+  public void initialize(List<Song> songs, List<String> artists, List<String> genres) {
+    this.songs = songs;
+    this.artists = artists;
+    this.genres = genres;
+
+    resetCounters();
+    Collections.shuffle(songs);
+
+    playedSongs = new LinkedList<Song>();
+    prevIter = playedSongs.listIterator();
+  }
 
   public void initialize(String musicDirectory, String dataDirectory) {
     try {
@@ -39,6 +53,9 @@ public abstract class Shuffler {
     }
 
     songs = tagExtractor.getSongs();
+    artists = tagExtractor.getArtists();
+    genres = tagExtractor.getGenres();
+
     resetCounters();
     Collections.shuffle(songs);
 
@@ -111,39 +128,34 @@ public abstract class Shuffler {
     // consume data for learning
     consumeData(song, rating);
 
-    // did we hate the prev song? increment the hate-count
-    if (hatedPrev) {
-      ++hateCount;
-      // we did not hate the prev song! reset hate-count
-    } else {
-      hateCount = 0;
-    }
+    // did we hate the prev song? increment hate-count else reset hate-count
+    hateCount = hatedPrev ? hateCount + 1 : 0;
 
     // did we hate this song? let the next song know!
-    if (rating < 1) {
-      hatedPrev = true;
-    } else {
-      hatedPrev = false;
-    }
+    hatedPrev = rating < 1 ? true : false;
 
     // increment count
     ++count;
   }
 
   public List<Song> getSongs() {
-    return tagExtractor.getSongs();
+    return songs;
   }
 
   public List<String> getArtists() {
-    return tagExtractor.getArtists();
+    return artists;
   }
 
   public List<String> getGenres() {
-    return tagExtractor.getGenres();
+    return genres;
   }
 
-  public TagExtractor getTagExtractor() {
-    return tagExtractor;
+  public int getArtistIndex(Song song) {
+    return artists.indexOf(song.getTag().artist);
+  }
+
+  public int getGenreIndex(Song song) {
+    return genres.indexOf(song.getTag().genre);
   }
 
   private void resetCounters() {
